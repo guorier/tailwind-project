@@ -1,6 +1,4 @@
 # Next Common Project
-![Image](https://github.com/user-attachments/assets/ab3c8a26-21fe-4d91-b960-e332f6a8fb58)
-![Image](https://github.com/user-attachments/assets/9c74e08f-20ac-480d-8bf2-814dd326a218)
 
 ## Getting started
 
