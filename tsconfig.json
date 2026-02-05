@@ -23,24 +23,12 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@public/*": [
-        "./public/*"
-      ],
-      "@utiles/*": [
-        "./src/utiles/*"
-      ],
-      "@components/*": [
-        "./src/components/*"
-      ],
-      "@styles/*": [
-        "./src/styles/*"
-      ],
-      "@containers/*": [
-        "./src/containers/*"
-      ],
+      "@/*": ["./src/*"],
+      "@public/*": ["./public/*"],
+      "@utiles/*": ["./src/utiles/*"],
+      "@components/*": ["./src/components/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@containers/*": ["./src/containers/*"]
     }
   },
   "include": [

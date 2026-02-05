@@ -3,7 +3,7 @@ import { ComponentProps, forwardRef } from "react";
 import { twMerge } from "tailwind-merge";
 import { DeepPartial } from "flowbite-react/lib/esm/types";
 import { mergeDeep } from "@/components/helpers/merge-deep";
-import { Icon } from '@/components/Icons';
+import Icons from '@/components/Icons';
 import SearchBoxConfig, { SearchBoxStyle } from "@/styles/theme/search.theme";
 
 interface SearchBoxProps extends Omit<ComponentProps<"input">, "ref"> {
@@ -33,7 +33,7 @@ export const SearchBox = forwardRef<HTMLInputElement, SearchBoxProps>(
                 <button type="submit"
                     className={twMerge(theme.button)}
                     disabled={props.disabled}
-                ><Icon iName="iconSearch" className="size-5"/>
+                ><Icons iName="iconSearch" className="size-5"/>
                 </button>
             </div>
         );

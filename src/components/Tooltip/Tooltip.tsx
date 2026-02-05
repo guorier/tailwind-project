@@ -1,46 +1,23 @@
-import React, { useState, forwardRef, ComponentProps } from "react";
-import { DeepPartial } from "flowbite-react/lib/esm/types";
-import { mergeDeep } from "@/components/helpers/merge-deep";
-import { twMerge } from "tailwind-merge";
-import TipConfig, { TooltipStyle } from '@/styles/theme/tooltip.theme';
+import { Button } from "@/components/ui/button"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+  TooltipProvider
+} from "@/components/ui/tooltip"
 
-interface TooltipProps extends Omit<ComponentProps<"div">, "ref"> {
-    theme?: DeepPartial<TooltipStyle>;
-    content: string;
-    children: React.ReactNode;
-    borderRadius?: keyof TooltipStyle['border_radius'];
+export function TooltipDemo() {
+  return (
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button variant="outline">Hover</Button>
+        </TooltipTrigger>
+
+        <TooltipContent side="top" align="center">
+          Add to library
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  )
 }
-
-export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
-    ({
-        className,
-        theme: customTheme = {},
-        content,
-        children,
-        borderRadius = "default"
-    }, ref) => {
-        const theme = mergeDeep(TipConfig, customTheme);
-        const [visible, setVisible] = useState(false);
-
-        return (
-            <div className={twMerge(theme.wrap)}
-                onMouseEnter={() => setVisible(true)}
-                onMouseLeave={() => setVisible(false)}
-            >
-                {children}
-                {visible && (
-                    <div className={twMerge(
-                        theme.tip,
-                        theme.border_radius[borderRadius],
-                        className,
-                    )}>
-                        <div className={twMerge(theme.triangle)} />
-                        {content}
-                    </div>
-                )}
-            </div>
-        );
-    },
-);
-
-Tooltip.displayName = 'Tooltip';

@@ -2,7 +2,7 @@ import React, { forwardRef } from "react";
 import { twMerge } from "tailwind-merge";
 import { mergeDeep } from "@/components/helpers/merge-deep";
 import { DeepPartial } from "flowbite-react/lib/esm/types";
-import { Icon } from '@/components/Icons';
+import Icons from '@/components/Icons';
 import PaginationTheme from "@styles/theme/paging.theme"; // 커스텀 테마 파일
 
 interface PaginationProps extends Omit<React.ComponentProps<"div">, "ref"> {
@@ -28,16 +28,16 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(
 
         return (
             <div className={twMerge(theme.base, className)}>
-                <button className={theme.pages}><Icon iName="iconDoubleLeft" className="size-3" /></button>
-                <button className={theme.pages}><Icon iName="iconLeft" className="size-3" /></button>
+                <button className={theme.pages}><Icons iName="iconDoubleLeft" className="size-3" /></button>
+                <button className={theme.pages}><Icons iName="iconLeft" className="size-3" /></button>
                 {getPageNumbers().map((number) => (
                     <div key={number} className={twMerge(theme.pages, currentPage === number && theme.selector,)}
                         onClick={() => onPageChange(number)}
                     >{number}
                     </div>
                 ))}
-                <button className={theme.pages}><Icon iName="iconRight" className="size-3" /></button>
-                <button className={theme.pages}><Icon iName="iconDoubleRight" className="size-3" /></button>
+                <button className={theme.pages}><Icons iName="iconRight" className="size-3" /></button>
+                <button className={theme.pages}><Icons iName="iconDoubleRight" className="size-3" /></button>
             </div>
         );
     }

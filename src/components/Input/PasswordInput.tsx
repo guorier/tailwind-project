@@ -3,7 +3,7 @@ import React, { ComponentProps, forwardRef, useState } from "react";
 import { DeepPartial } from "flowbite-react/lib/esm/types";
 import { mergeDeep } from "@/components/helpers/merge-deep";
 import { twMerge } from "tailwind-merge";
-import { Icon } from '@/components/Icons';
+import Icons from '@/components/Icons';
 import PasswordConfig, { PasswordStyle } from "@styles/theme/password.theme";
 
 interface PasswordType {
@@ -51,8 +51,8 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
                     disabled={props.disabled}
                 >
                     {pwType.visible ?
-                        <Icon iName="iconEyeOff" className="size-5.5" />
-                        : <Icon iName="iconEyeOn" className="size-5.5" />
+                        <Icons iName="iconEyeOff" className="size-5.5" />
+                        : <Icons iName="iconEyeOn" className="size-5.5" />
                     }
                 </button>
             </div>

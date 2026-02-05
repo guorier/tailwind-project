@@ -8,3 +8,4 @@ export const TagG = ({ children }: { children: ReactNode }) => <span className="
 export const TagR = ({ children }: { children: ReactNode }) => <span className="text-[#fb7185]">{children}</span>; // Red
 export const TagSi = ({ children }: { children: ReactNode }) => <span className="text-silver-300">{children}</span>; // Silver
 export const TagB = ({ children }: { children: ReactNode }) => <span className="text-[#6799FF]">{children}</span>; // Blue
+export const TagY9 = ({ children }: { children: ReactNode }) => <span className="text-yellow-900">{children}</span>; // oreng

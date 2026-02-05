@@ -1,9 +1,7 @@
-import modal from './modal.theme';
-import fileInput from './fileInput.theme';
+// import modal from './modal.theme';
 
-const themes = {
-    modal,
-    fileInput,
-};
+// const themes = {
+//   modal,
+// };
 
-export default themes;
+// export default themes;

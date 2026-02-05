@@ -1,108 +1,359 @@
 "use client"
-import React, { useState } from "react";
 import { CodeData } from "@/components/helpers/examples/code-demo";
-import { Table, TableColGroup, TableBody, TableCell, TableHead, TableHeadCell, TableRow } from "@/components/Table";
-import { Checkbox } from '@/components/Checkbox/Checkbox';
-const code = ``;
+"use client"
+import * as React from "react"
+import {
+  ColumnDef,
+  ColumnFiltersState,
+  SortingState,
+  VisibilityState,
+  flexRender,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  useReactTable,
+} from "@tanstack/react-table"
+import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Input } from "@/components/ui/input"
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
 
-function Component() {
+import { TableColGroup } from "@/components/Table"
 
-    const tabledata = [...Array(20)].map((_, index) => ({
-        code: <Checkbox />,
-        content: `Table Data- row${String(index + 1).padStart(2, '0')}`
-    }));
-    const [initialData, setInitialData] = useState(tabledata); // 상태를 통해 데이터를 관리
-    const [sortState, setSortState] = useState(0);
-    const handleSort = () => {
-        let sortData;
+import { Badge } from "@/components/ui/badge"
+import { ChevronDown, MoreHorizontal, ChevronsUpDown } from "lucide-react"
 
-        if (sortState === 0) {
-            // 첫 클릭: 오름차순
-            sortData = [...initialData].sort((a, b) => a.content.localeCompare(b.content));
-            setSortState(1);
-        } else if (sortState === 1) {
-            // 두 번째 클릭: 내림차순
-            sortData = [...initialData].sort((a, b) => b.content.localeCompare(a.content));
-            setSortState(2);
-        } else {
-            // 세 번째 클릭: 초기 상태로 리셋
-            sortData = tabledata;
-            setSortState(0);
-        }
-
-        setInitialData(sortData); // 정렬된 데이터 상태 업데이트
-    };
-
-
-    return (
-        <div className="flex flex-col gap-10 min-h-56">
-            <div className="flex flex-col gap-4 h-[600px]">
-                <div className='flex items-center gap-4'>
-                    <h5 className='flex-none'>Default</h5>
-                    <div className="w-full h-px bg-silver-400"></div>
-                </div>
-
-                <Table hgt="500px">
-                    <TableColGroup
-                        columnCount={5}
-                        widths={{ 0: '40px', 2: '16%', 3: '16%', 4: '16%' }}
-                    />
-                    <TableHead>
-                        <TableRow>
-                            <TableHeadCell unsorted><Checkbox /></TableHeadCell>
-                            <TableHeadCell onSort={handleSort}>column1</TableHeadCell>
-                            <TableHeadCell onSort={handleSort}>column2</TableHeadCell>
-                            <TableHeadCell unsorted>column3</TableHeadCell>
-                            <TableHeadCell unsorted>column4</TableHeadCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {initialData.map((row, idx) => (
-                            <TableRow key={idx} striped hoverable>
-                                <TableCell>{row.code}</TableCell>
-                                <TableCell align="left">{row.content}</TableCell>
-                                <TableCell>{row.content}</TableCell>
-                                <TableCell align="right">{row.content}</TableCell>
-                                <TableCell align="right">{row.content}</TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </div>
-            <div className="flex flex-col gap-4 h-[600px]">
-                <div className='flex items-center gap-4'>
-                    <h5 className='flex-none'>가로 헤더 테이블</h5><div className="w-full h-px bg-silver-400"></div>
-                </div>
-
-                <Table hgt="500px">
-                    <TableColGroup
-                        columnCount={2}
-                        widths={{0: '200px',}}
-                    />
-                    <TableBody>
-                        {initialData.map((row, idx) => (
-                            <TableRow key={idx}>
-                                <TableHeadCell align="left" unsorted>column3</TableHeadCell>
-                                <TableCell align="left">{row.content}</TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </div>
-        </div>
-    );
+type Payment = {
+  id: string
+  amount: number
+  status: "pending" | "processing" | "success" | "failed"
+  email: string
 }
 
+const data: Payment[] = [
+  { id: "m5gr84i9", amount: 316, status: "success", email: "ken99@yahoo.com" },
+  { id: "3u1reuv4", amount: 242, status: "success", email: "Abe45@gmail.com" },
+  { id: "derv1ws0", amount: 837, status: "processing", email: "Monserrat44@gmail.com" },
+  { id: "5kma53ae", amount: 874, status: "success", email: "Silas22@gmail.com" },
+  { id: "bhqecj4p", amount: 721, status: "failed", email: "carmella@hotmail.com" },
+  { id: "m5gr84i9", amount: 316, status: "success", email: "ken99@yahoo.com" },
+  { id: "3u1reuv4", amount: 242, status: "success", email: "Abe45@gmail.com" },
+  { id: "derv1ws0", amount: 837, status: "processing", email: "Monserrat44@gmail.com" },
+  { id: "5kma53ae", amount: 874, status: "success", email: "Silas22@gmail.com" },
+  { id: "bhqecj4p", amount: 721, status: "failed", email: "carmella@hotmail.com" },
+  { id: "m5gr84i9", amount: 316, status: "success", email: "ken99@yahoo.com" },
+  { id: "3u1reuv4", amount: 242, status: "success", email: "Abe45@gmail.com" },
+  { id: "derv1ws0", amount: 837, status: "processing", email: "Monserrat44@gmail.com" },
+  { id: "5kma53ae", amount: 874, status: "success", email: "Silas22@gmail.com" },
+  { id: "bhqecj4p", amount: 721, status: "failed", email: "carmella@hotmail.com" },
+  { id: "m5gr84i9", amount: 316, status: "success", email: "ken99@yahoo.com" },
+  { id: "3u1reuv4", amount: 242, status: "success", email: "Abe45@gmail.com" },
+  { id: "derv1ws0", amount: 837, status: "processing", email: "Monserrat44@gmail.com" },
+  { id: "5kma53ae", amount: 874, status: "success", email: "Silas22@gmail.com" },
+  { id: "bhqecj4p", amount: 721, status: "failed", email: "carmella@hotmail.com" },
+]
+
+const columns: ColumnDef<Payment>[] = [
+  {
+    id: "select",
+    header: ({ table }) => (
+      <Checkbox
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && "indeterminate")
+        }
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
+  {
+    accessorKey: "id",
+    header: "ID",
+    cell: ({ row }) => <div className="font-medium">{row.getValue("id")}</div>,
+  },
+  {
+    accessorKey: "email",
+    header: ({ column }) => {
+      return (
+        <Button
+          className="p-0"
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Email
+          <ChevronsUpDown className="size-4 min-w-4" />
+        </Button>
+      )
+    },
+    cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
+  },
+  {
+    accessorKey: "status",
+    header: "Status",
+    cell: ({ row }) => {
+      const status = row.getValue("status") as string
+      return (
+        <Badge variant={
+          status === "success" ? "default" :
+          status === "processing" ? "secondary" :
+          status === "pending" ? "outline" : "destructive"
+        }>
+          {status}
+        </Badge>
+      )
+    },
+  },
+  {
+    accessorKey: "amount",
+    header: ({ column }) => {
+      return (
+        <div className="text-right">
+          <Button
+            className="p-0"
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Amount
+            <ChevronsUpDown className="size-4 min-w-4" />
+          </Button>
+        </div>
+      )
+    },
+    cell: ({ row }) => {
+      const amount = parseFloat(row.getValue("amount"))
+      const formatted = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+      }).format(amount)
+
+      return <div className="text-right font-medium">{formatted}</div>
+    },
+  },
+  {
+    id: "actions",
+    enableHiding: false,
+    cell: ({ row }) => {
+      const payment = row.original
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="h-8 w-8 p-0">
+              <span className="sr-only">Open menu</span>
+              <MoreHorizontal className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuItem
+              onClick={() => navigator.clipboard.writeText(payment.id)}
+            >
+              Copy payment ID
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>View customer</DropdownMenuItem>
+            <DropdownMenuItem>View payment details</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )
+    },
+  },
+]
+export default function TableData() {
+  const [sorting, setSorting] = React.useState<SortingState>([])
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
+  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
+  const [rowSelection, setRowSelection] = React.useState({})
+  const table = useReactTable({
+    data,
+    columns,
+    onSortingChange: setSorting,
+    onColumnFiltersChange: setColumnFilters,
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    onColumnVisibilityChange: setColumnVisibility,
+    onRowSelectionChange: setRowSelection,
+    state: {
+      sorting,
+      columnFilters,
+      columnVisibility,
+      rowSelection,
+    },
+  })
+  return (
+    <div className="w-full flex flex-col gap-2">
+      <div className="flex items-center gap-2">
+        <Input
+          placeholder="Filter..."
+          value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+          onChange={(event) =>
+            table.getColumn("email")?.setFilterValue(event.target.value)
+          }
+          className="max-w-sm h-10 mr-auto"
+        />
+        <div className="text-sm text-muted-foreground">
+          {table.getFilteredSelectedRowModel().rows.length} of{" "}
+          {table.getFilteredRowModel().rows.length} row(s) selected.
+        </div>
+
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" className="">
+              Columns <ChevronDown className="ml-2 size-4 min-w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            {table
+              .getAllColumns()
+              .filter((column) => column.getCanHide())
+              .map((column) => {
+                return (
+                  <DropdownMenuCheckboxItem
+                    key={column.id}
+                    className="capitalize"
+                    checked={column.getIsVisible()}
+                    onCheckedChange={(value) =>
+                      column.toggleVisibility(!!value)
+                    }
+                  >
+                    {column.id}
+                  </DropdownMenuCheckboxItem>
+                )
+              })}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+
+      <div className="flex flex-col gap-4 h-[600px] rounded-md border border-slate-300 overflow-hidden">
+        <Table>
+          <TableColGroup
+            columnCount={6}
+            widths={{ 0: '42px', 1: '16%', 3: '10%', 4: '10%', 5: '50px' }}
+          />
+          <TableHeader className="sticky top-0 bg-white">
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => {
+                  return (
+                    <TableHead key={header.id}>
+                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                    </TableHead>
+                  )
+                })}
+              </TableRow>
+            ))}
+          </TableHeader>
+          <TableBody>
+            {table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map((row) => (
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && "selected"}
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
+                  No results.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
+
+
+    </div>
+  )
+}
+
+
+const code = `
+import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table"
+import { useReactTable, getCoreRowModel, flexRender } from "@tanstack/react-table"
+
+export default function Example() {
+  const table = useReactTable({
+    data,
+    columns,
+    getCoreRowModel: getCoreRowModel()
+  })
+
+  return (
+    <Table>
+      <TableHeader>
+        {table.getHeaderGroups().map(group => (
+          <TableRow key={group.id}>
+            {group.headers.map(header => (
+              <TableHead key={header.id}>
+                {flexRender(header.column.columnDef.header, header.getContext())}
+              </TableHead>
+            ))}
+          </TableRow>
+        ))}
+      </TableHeader>
+      <TableBody>
+        {table.getRowModel().rows.map(row => (
+          <TableRow key={row.id}>
+            {row.getVisibleCells().map(cell => (
+              <TableCell key={cell.id}>
+                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+              </TableCell>
+            ))}
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  )
+}
+`;
+
+
 export const root: CodeData = {
-    title: "Table Examples",
-    type: 'single',
-    code: [
-        {
-            fileName: 'client',
-            language: 'tsx',
-            code,
-        },
-    ],
-    githubSlug: 'table/table.root.tsx',
-    component: <Component />,
+  title: "Table Examples",
+  type: "single",
+  code: [
+    {
+      fileName: "client",
+      language: "tsx",
+      code,
+    },
+  ],
+  component: <TableData />,
 };

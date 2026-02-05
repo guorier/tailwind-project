@@ -1,18 +1,40 @@
-import clsx from "clsx";
-import { Icon } from "@/components/Icons";
+import { twMerge } from 'tailwind-merge'
+import { OctagonAlert, FileExclamationPoint } from "lucide-react";
+import {
+  Empty,
+  EmptyContent,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from "@/components/ui/empty"
+
+
 
 interface EmptyProps {
-    className?: string
-    children: React.ReactNode
+  className?: string
+  children?: React.ReactNode
 }
 
-export const Empty = ({ children, className }: EmptyProps) => {
-    return (
-        <div className={clsx("flex flex-col justify-center items-center", className)}>
-            <Icon iName="iconEmpty2" className="size-15" />
-            <div className="text-natural-300">
-                {children}
-            </div>
+export const EmptyBox = ({ children, className }: EmptyProps) => {
+  return (
+    <Empty className={twMerge(className)}>
+      <EmptyHeader>
+        <EmptyMedia variant="icon">
+          <OctagonAlert className='text-blue-700'/>
+        </EmptyMedia>
+        <EmptyTitle>404 - Not Found</EmptyTitle>
+        <EmptyDescription>
+          The page you&apos;re looking for doesn&apos;t exist. Try searching for
+          what you need below.
+          
+        </EmptyDescription>
+      </EmptyHeader>
+      <EmptyContent>
+        <div className="flex items-center gap-2">
+          {children}
         </div>
-    );
+      </EmptyContent>
+    </Empty>
+  );
 }

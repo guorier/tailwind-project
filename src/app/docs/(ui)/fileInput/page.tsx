@@ -1,54 +1,33 @@
 import * as root from "@/examples/fileInput";
 import DocPage from "@/components/DocPage";
+import { TagS, TagY, TagP, TagG, TagSi, TagR, TagB, TagY9 } from "@/components/Tag";
+
 
 export default function FileinputDoc() {
 
-   return (
-      <>
-         <div className='mx-auto max-w-7xl'>
-            <h3 className='mt-8 mb-4'>파일업로드</h3>
-            <div className='flex items-center gap-4 mb-4'>
-               <h5 className='flex-none font-bold'>태그</h5>
-               <div className="w-full border-t border-solid border-gray-300"></div>
-            </div>
-            <div className="flex flex-col justify-center mb-8 p-8 bg-slate-800 rounded-lg text-white ">
-               <div>
-                  <span className="text-silver-400">&#60;</span>
-                  <span className="text-pink-500 pr-1">FileInput</span>
-                  <span className="text-amber-400">multiple</span>
-                  <span className="text-silver-400">/&#62;</span>
-               </div>
-            </div>
-            <div className='flex items-center gap-4 mb-4'>
-               <h5 className='flex-none font-bold'>속성</h5>
-               <div className="w-full border-t border-solid border-gray-300"></div>
-            </div>
-            <div className='flex items-start gap-4 mb-4'>
-               <div className="mb-2 font-medium">multiple : </div>
-               <div>
-                  <p className="font-medium mb-1">ex) &#60;FileInput multiple /&#62;</p>
-                  <p>다중파일 업로드 사용하려면 태그안에 &#34;multiple&#34; 선언하여 사용합니다</p>
-               </div>
-            </div>
+  return (
+    <>
+      <div className='mx-auto max-w-7xl'>
+        <h3 className='mt-8 mb-4'>파일업로드</h3>
 
+        <div className='flex items-center gap-4 mb-4'>
+          <h5 className='flex-none font-bold'>속성</h5>
+          <div className="w-full border-t border-solid border-gray-300"></div>
+        </div>
+        <div className='flex items-start gap-4 mb-4'>
+          <div className="font-medium">
+            파일이 추가되면 실행되는 콜백 함수입니다.<br/>
+            드래그·드롭 또는 파일 선택으로 업로드된 File 객체 배열을 전달받아<br/>
+            업로드 처리(API 요청 등)에 활용할 수 있습니다.<br/>
 
-            <div className='flex items-center gap-4 mb-4'>
-               <h5 className='flex-none font-bold'>드래그드랍 태그</h5>
-               <div className="w-full border-t border-solid border-gray-300"></div>
-            </div>
-            <div className="flex flex-col justify-center mb-8 p-8 bg-slate-800 rounded-lg text-white ">
-               <div>
-                  <span className="text-silver-400">&#60;</span>
-                  <span className="text-pink-500 pr-1">FileDragAndDrop</span>
-                  <span className="text-silver-400">/&#62;</span>
-               </div>
-            </div>
-            
-            <div className="font-medium mb-4">이외 기본 속성(Attributes)들은 html에서 제공하는 것과 동일합니다</div>
-            <div className="w-full border-t border-solid border-gray-300" />
-         </div>
-         
-         <DocPage root={root} />
-      </>
-   );
+            이외 기본 속성(Attributes)들은<br/>
+            HTML &#60;input type="file"&#62;에서 제공하는 것과 동일합니다.
+          </div>
+        </div>
+        <div className="w-full border-t border-solid border-gray-300" />
+      </div>
+
+      <DocPage root={root} />
+    </>
+  );
 }

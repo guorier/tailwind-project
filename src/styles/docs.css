@@ -39,7 +39,7 @@
 }
 
 #visible-table-of-contents a {
-  @apply inline-block border-l border-white pl-2.5 font-medium transition-none duration-200 after:ml-2 after:text-primary-700 after:opacity-0 after:transition-opacity after:duration-100 after:content-['#'] hover:border-gray-300 hover:text-silver-900 hover:after:opacity-100 dark:border-gray-900 dark:after:text-primary-700 dark:hover:border-gray-700 dark:hover:text-white;
+  @apply inline-block border-l border-white pl-2.5 font-medium transition-none duration-200 after:ml-2 after:text-primary-700 after:opacity-0 after:transition-opacity after:duration-100 after:content-["#"] hover:border-gray-300 hover:text-silver-900 hover:after:opacity-100 dark:border-gray-900 dark:after:text-primary-700 dark:hover:border-gray-700 dark:hover:text-white;
 }
 
 #mainContent > hr,

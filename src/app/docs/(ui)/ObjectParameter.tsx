@@ -1,37 +1,47 @@
 'use client';
 
-import { Table } from 'flowbite-react';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 export interface Parameter {
-    parameter: string
-    type: string
-    required: 'Required' | 'Optional'
-    description: string
+  parameter: string
+  type: string
+  required: "Required" | "Optional"
+  description: string
 }
 
 export default function ObjectParameter({ parameters }: { parameters: Parameter[] }) {
-    return (
-        <div className="overflow-x-auto w-full">
-            <Table hoverable>
-                <Table.Head>
-                    <Table.HeadCell>parameter</Table.HeadCell>
-                    <Table.HeadCell>type</Table.HeadCell>
-                    <Table.HeadCell>required</Table.HeadCell>
-                    <Table.HeadCell>description</Table.HeadCell>
-                </Table.Head>
-                <Table.Body className="divide-y">
-                    {parameters.map((parameter: Parameter) =>
-                        <Table.Row key={parameter.parameter} className="bg-white dark:border-gray-700 dark:bg-silver-800">
-                            <Table.Cell className="whitespace-nowrap font-medium text-silver-900 dark:text-white">
-                                {parameter.parameter}
-                            </Table.Cell>
-                            <Table.Cell>{parameter.type}</Table.Cell>
-                            <Table.Cell>{parameter.required}</Table.Cell>
-                            <Table.Cell>{parameter.description}</Table.Cell>
-                        </Table.Row>
-                    )}
-                </Table.Body>
-            </Table>
-        </div>
-    );
+  return (
+    <div className="w-full overflow-x-auto">
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>parameter</TableHead>
+            <TableHead>type</TableHead>
+            <TableHead>required</TableHead>
+            <TableHead>description</TableHead>
+          </TableRow>
+        </TableHeader>
+
+        <TableBody>
+          {parameters.map((parameter) => (
+            <TableRow key={parameter.parameter}>
+              <TableCell className="font-medium">
+                {parameter.parameter}
+              </TableCell>
+              <TableCell>{parameter.type}</TableCell>
+              <TableCell>{parameter.required}</TableCell>
+              <TableCell>{parameter.description}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </div>
+  );
 }

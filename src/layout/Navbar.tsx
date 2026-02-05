@@ -6,9 +6,9 @@ import Nav from './Nav';
 export const revalidate = 0
 export default async function Navbar() {
 
-    return (
-        <div className="flex justify-center items-baseline py-1 px-6 border-b border-gray-400">
-            <Nav />
-        </div>
-    )
+  return (
+    <div className="flex justify-center items-baseline py-1 px-6 border-b border-gray-400">
+      <Nav />
+    </div>
+  )
 }

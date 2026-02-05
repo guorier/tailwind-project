@@ -2,7 +2,7 @@ import React, { forwardRef } from "react";
 import { twMerge } from "tailwind-merge";
 import { mergeDeep } from "@/components/helpers/merge-deep";
 import { DeepPartial } from "flowbite-react/lib/esm/types";
-import { Icon } from '@/components/Icons';
+import Icons from '@/components/Icons';
 import PaginationTheme from "@styles/theme/paging.theme";
 
 interface ModernPaginationProps extends Omit<React.ComponentProps<"div">, "ref"> {
@@ -57,7 +57,7 @@ export const ModernPagination = forwardRef<HTMLElement, ModernPaginationProps>(
 
         return (
             <div className={twMerge(theme.base, className)}>
-                <button className={theme.pages}><Icon iName="iconLeft" className="size-3" /></button>
+                <button className={theme.pages}><Icons iName="iconLeft" className="size-3" /></button>
                 {getPageNumbers().map((number, index) => (
                     <div
                         key={index}
@@ -71,7 +71,7 @@ export const ModernPagination = forwardRef<HTMLElement, ModernPaginationProps>(
                         {number}
                     </div>
                 ))}
-                <button className={theme.pages}><Icon iName="iconRight" className="size-3" /></button>
+                <button className={theme.pages}><Icons iName="iconRight" className="size-3" /></button>
             </div>
         );
     }
