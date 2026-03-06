@@ -81,9 +81,9 @@ function Component() {
           <div className="flex flex-col items-center gap-4">
             <Gridtitle>Radio : Small</Gridtitle>
             <div className="h-[22px]"><Radio label="텍스트 내용" /></div>
-            <div className="h-[22px]"><Radio label="텍스트 내용" checked /></div>
-            <div className="h-[22px]"><Radio label="텍스트 내용" disabled /></div>
-            <div className="h-[22px]"><Radio label="텍스트 내용" disabled checked /></div>
+            <div className="h-[22px]"><Radio label="텍스트 내용"  /></div>
+            <div className="h-[22px]"><Radio label="텍스트 내용"  /></div>
+            <div className="h-[22px]"><Radio label="텍스트 내용"   /></div>
           </div>
 
           <div className="flex flex-col items-center gap-4">
