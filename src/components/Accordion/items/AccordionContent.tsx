@@ -1,6 +1,6 @@
 import { FC, ComponentProps } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { DeepPartial } from '@reduxjs/toolkit';
+import type { DeepPartial } from '@/types/theme';
 import { mergeDeep } from "@/components/helpers/merge-deep";
 import accordionConfig, { AccordionStyle } from "@styles/theme/accordion.theme";
 

@@ -3,7 +3,7 @@
 import { ComponentProps, FC, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { mergeDeep } from "@/components/helpers/merge-deep";
-import { DeepPartial } from '@reduxjs/toolkit';
+import type { DeepPartial } from '@/types/theme';
 import { ToastContext, Duration } from './ToastContext';
 import { ToastToggle } from './ToastToggle';
 import { HiCheck, HiExclamation, HiX } from 'react-icons/hi';
@@ -47,7 +47,7 @@ const ToastComponent: FC<ToastProps> = ({
 
   return (
     <ToastContext.Provider value={{ theme, duration, isClosed, isRemoved, setIsClosed, setIsRemoved }}>
-      <div data-testid="flowbite-toast"
+      <div
         className={twMerge(theme.root.base, durationClasses[duration], isClosed && theme.root.closed, className)}
         role="alert"
         {...props}

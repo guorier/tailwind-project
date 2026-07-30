@@ -1,5 +1,5 @@
 import React, { FC, Children, ComponentProps, cloneElement, ReactElement } from 'react';
-import { DeepPartial } from "flowbite-react/lib/esm/types";
+import type { DeepPartial } from "@/types/theme";
 import { AccordionStyle } from "@styles/theme/accordion.theme";
 
 // [Props]

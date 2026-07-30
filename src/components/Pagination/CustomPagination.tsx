@@ -1,80 +1,102 @@
-import React, { forwardRef } from "react";
-import { twMerge } from "tailwind-merge";
-import { mergeDeep } from "@/components/helpers/merge-deep";
-import { DeepPartial } from "flowbite-react/lib/esm/types";
-import Icons from '@/components/Icons';
-import PaginationTheme from "@styles/theme/paging.theme";
+'use client';
 
-interface ModernPaginationProps extends Omit<React.ComponentProps<"div">, "ref"> {
+import type { ComponentProps } from 'react';
+import { forwardRef } from 'react';
+import { twMerge } from 'tailwind-merge';
+import { mergeDeep } from '@/components/helpers/merge-deep';
+import type { DeepPartial } from '@/types/theme';
+import Icons from '@/components/Icons';
+import paginationTheme, { type PagingTheme } from '@styles/theme/paging.theme';
+
+const VISIBLE_PAGES = 5;
+const ELLIPSIS = '...';
+
+interface ModernPaginationProps extends Omit<ComponentProps<'div'>, 'ref'> {
     currentPage: number;
     totalPages: number;
     onPageChange: (page: number) => void;
-    className?: string;
-    theme?: DeepPartial<typeof PaginationTheme>;
+    theme?: DeepPartial<PagingTheme>;
 }
 
-export const ModernPagination = forwardRef<HTMLElement, ModernPaginationProps>(
-    ({
-        theme: customTheme = {},
-        className,
-        currentPage,
-        totalPages,
-        onPageChange,
-    }) => {
-        const theme = mergeDeep(PaginationTheme, customTheme);
-        
-        const getPageNumbers = () => {
-            const pageNumbers: (number | string)[] = [];
-            const totalVisiblePages = 5;
-        
-            let startPage = Math.max(1, currentPage - Math.floor(totalVisiblePages / 2));
-            let endPage = startPage + totalVisiblePages - 1;
-        
-            if (currentPage <= 4) { //앞에서 4번째 5개씩 나열
-                startPage = 1;
-                endPage = Math.min(totalVisiblePages, totalPages);
-            }
-            if (currentPage >= totalPages - 3) { //마지막에서 4번째 5개씩 나열
-                endPage = totalPages;
-                startPage = totalPages - totalVisiblePages + 1;
-            }
+/**
+ * 앞뒤에 첫/마지막 페이지와 생략 기호를 함께 노출하는 페이지네이션.
+ */
+export const ModernPagination = forwardRef<HTMLDivElement, ModernPaginationProps>(
+    (
+        { currentPage, totalPages, onPageChange, theme: customTheme = {}, className, ...props },
+        ref,
+    ) => {
+        const theme = mergeDeep(paginationTheme, customTheme);
+
+        const buildPageItems = (): (number | typeof ELLIPSIS)[] => {
+            const half = Math.floor(VISIBLE_PAGES / 2);
+            const startPage = Math.max(1, Math.min(currentPage - half, totalPages - VISIBLE_PAGES + 1));
+            const endPage = Math.min(totalPages, startPage + VISIBLE_PAGES - 1);
+
+            const items: (number | typeof ELLIPSIS)[] = [];
+
             if (startPage > 1) {
-                pageNumbers.push(1);
-                if (startPage > 2) pageNumbers.push('...');
+                items.push(1);
+                if (startPage > 2) items.push(ELLIPSIS);
             }
-        
-            for (let i = startPage; i <= endPage; i++) {
-                pageNumbers.push(i);
+
+            for (let page = startPage; page <= endPage; page++) {
+                items.push(page);
             }
-        
+
             if (endPage < totalPages) {
-                if (endPage < totalPages - 1) pageNumbers.push('...');
-                pageNumbers.push(totalPages);
+                if (endPage < totalPages - 1) items.push(ELLIPSIS);
+                items.push(totalPages);
             }
-        
-            return pageNumbers;
+
+            return items;
         };
 
+        const goTo = (page: number) => onPageChange(Math.min(Math.max(page, 1), totalPages));
+
         return (
-            <div className={twMerge(theme.base, className)}>
-                <button className={theme.pages}><Icons iName="iconLeft" className="size-3" /></button>
-                {getPageNumbers().map((number, index) => (
-                    <div
-                        key={index}
-                        onClick={() => typeof number === 'number' && onPageChange(number)}
-                        className={twMerge(
-                            theme.pages,
-                            currentPage === number && theme.selector,
-                            typeof number !== 'number' && 'cursor-default'
-                        )}
-                    >
-                        {number}
-                    </div>
-                ))}
-                <button className={theme.pages}><Icons iName="iconRight" className="size-3" /></button>
+            <div ref={ref} className={twMerge(theme.base, className)} {...props}>
+                <button
+                    type="button"
+                    aria-label="이전 페이지"
+                    className={theme.pages}
+                    disabled={currentPage <= 1}
+                    onClick={() => goTo(currentPage - 1)}
+                >
+                    <Icons iName="iconLeft" className="size-3" />
+                </button>
+
+                {buildPageItems().map((item, index) =>
+                    item === ELLIPSIS ? (
+                        <span key={`ellipsis-${index}`} className={twMerge(theme.pages, 'cursor-default')}>
+                            {ELLIPSIS}
+                        </span>
+                    ) : (
+                        <button
+                            key={item}
+                            type="button"
+                            aria-label={`${item} 페이지`}
+                            aria-current={currentPage === item ? 'page' : undefined}
+                            className={twMerge(theme.pages, currentPage === item && theme.selector)}
+                            onClick={() => goTo(item)}
+                        >
+                            {item}
+                        </button>
+                    ),
+                )}
+
+                <button
+                    type="button"
+                    aria-label="다음 페이지"
+                    className={theme.pages}
+                    disabled={currentPage >= totalPages}
+                    onClick={() => goTo(currentPage + 1)}
+                >
+                    <Icons iName="iconRight" className="size-3" />
+                </button>
             </div>
         );
-    }
+    },
 );
 
-ModernPagination.displayName = "ModernPagination";
+ModernPagination.displayName = 'ModernPagination';

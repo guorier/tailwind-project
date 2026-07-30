@@ -1,6 +1,41 @@
-import type { FlowbiteTabsTheme } from "@/components/Tabs/items";
+import type { ThemeBoolean } from "@/types/theme";
 
-export const tabTheme: FlowbiteTabsTheme = {
+/** 탭 표시 방식별 클래스 묶음. */
+export interface TabStyles {
+    default: string;
+    fullWidth: string;
+    pills: string;
+    underline: string;
+}
+
+interface TabStyleItemProps {
+    base: string;
+    active: ThemeBoolean;
+}
+
+export type TabStyleItem<Type> = {
+    [K in keyof Type]: TabStyleItemProps;
+};
+
+export interface TabsTheme {
+    base: string;
+    tablist: {
+        base: string;
+        styles: TabStyles;
+        tabitem: {
+            base: string;
+            styles: TabStyleItem<TabStyles>;
+            icon: string;
+        };
+    };
+    tabitemcontainer: {
+        base: string;
+        styles: TabStyles;
+    };
+    tabpanel: string;
+}
+
+export const tabTheme: TabsTheme = {
     base: "flex flex-col gap-2",
     tablist: {
         base: "flex text-center",
@@ -11,7 +46,7 @@ export const tabTheme: FlowbiteTabsTheme = {
             fullWidth: "w-full text-sm font-medium divide-x divide-gray-200 shadow grid grid-flow-col rounded-none",
         },
         tabitem: {
-            base: "flex items-center justify-center p-4 rounded-t-lg text-sm font-medium first:ml-0 disabled:cursor-default disabled:text-silver-400  focus:ring-red-500 focus:outline-none bg-red-700",
+            base: "flex items-center justify-center p-4 rounded-t-lg text-sm font-medium first:ml-0 disabled:cursor-default disabled:text-silver-400 focus:ring-red-500 focus:outline-none bg-red-700",
             styles: {
                 default: {
                     base: "rounded-t-lg",
@@ -56,3 +91,5 @@ export const tabTheme: FlowbiteTabsTheme = {
     },
     tabpanel: "py-3",
 };
+
+export default tabTheme;

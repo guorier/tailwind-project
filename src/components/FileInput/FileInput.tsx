@@ -1,86 +1,84 @@
 'use client'
 
-import type { ComponentProps, ReactNode } from 'react';
-import { forwardRef, useState, ChangeEvent } from 'react';
+import type { ChangeEvent, ComponentProps } from 'react';
+import { forwardRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { mergeDeep } from "@/components/helpers/merge-deep";
-import { FlowbiteTextInputColors, FlowbiteTextInputSizes, getTheme } from 'flowbite-react';
-import { DeepPartial } from 'flowbite-react/lib/esm/types';
-import { FlowbiteFileInputTheme } from './items';
+import { mergeDeep } from '@/components/helpers/merge-deep';
+import type { DeepPartial, InputColors, InputSizes } from '@/types/theme';
+import type { FileInputTheme } from './items';
+import fileInputTheme from '@styles/theme/fileInput.theme';
 import { getByteSize } from '@/utiles/file';
 
+const MAX_FILE_COUNT = 5;
 
 interface FileInputProps extends Omit<ComponentProps<'input'>, 'type' | 'ref' | 'color'> {
-  color?: keyof FlowbiteTextInputColors;
-  sizing?: keyof FlowbiteTextInputSizes;
-  theme?: DeepPartial<FlowbiteFileInputTheme>;
-}
-interface IFile {
-  name: string;
-  size: number;
+  color?: keyof InputColors;
+  sizing?: keyof InputSizes;
+  theme?: DeepPartial<FileInputTheme>;
+  /** 첨부 가능한 최대 파일 개수. */
+  maxFileCount?: number;
 }
 
 export const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
-  ({ className, color = 'gray', sizing = 'md', theme: customTheme = {}, ...props }, ref) => {
-    const theme = mergeDeep(getTheme().fileInput, customTheme);
+  (
+    {
+      className,
+      color = 'gray',
+      sizing = 'md',
+      theme: customTheme = {},
+      maxFileCount = MAX_FILE_COUNT,
+      ...props
+    },
+    ref,
+  ) => {
+    const theme = mergeDeep(fileInputTheme, customTheme);
+    const [files, setFiles] = useState<File[]>([]);
 
-    const [fileList, setFileList] = useState<IFile[]>([]);
+    const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
+      const selected = Array.from(event.target.files ?? []);
+      event.target.value = '';
 
-    const onLoadFile = (e: ChangeEvent<HTMLInputElement>): void => {
-      let files: File[] = Array.from(e.target.files as unknown as File[]);
-      e.target.value = '';
+      // 이미 담긴 파일과 이름이 겹치는 항목은 제외한다.
+      const added = selected.filter(
+        (file) => !files.some((attached) => attached.name === file.name),
+      );
 
-      const maxFileCnt: number = 5;
-      const attFileCnt: number = document.querySelectorAll('.underline').length;
-      const remainFileCnt: number = maxFileCnt - attFileCnt;
-      const curFileCnt: number = files.length;
-
-      if (curFileCnt > remainFileCnt) {
-        alert(`첨부파일은 최대 ${maxFileCnt}개 까지 첨부 가능합니다.`);
+      if (files.length + added.length > maxFileCount) {
+        alert(`첨부파일은 최대 ${maxFileCount}개 까지 첨부 가능합니다.`);
         return;
       }
 
-      for (const fileArray of fileList) {
-        files = files.filter(item => item.name !== fileArray.name);
-      }
+      setFiles((prev) => [...prev, ...added]);
+    };
 
-      setFileList((prevFileList) => [...prevFileList, ...files]);
-    }
     return (
       <>
         <div className={twMerge(theme.root.base, className)}>
           <div className={theme.field.base}>
             <input
+              {...props}
+              type="file"
+              ref={ref}
               className={twMerge(
                 theme.field.input.base,
                 theme.field.input.colors[color],
                 theme.field.input.sizes[sizing],
               )}
-              {...props}
-              type="file"
-              ref={ref}
-              onChange={e => { onLoadFile(e) }}
+              onChange={handleChange}
             />
           </div>
         </div>
-        {fileList?.length > 0 ?
-          <div className="filelistbox">
-            {Array.from(fileList)?.map((item, index) => {
 
-              const name = item.name
-              const size = getByteSize(item.size)
-              return (
-                <div key={index} className="mb-1 flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <span className="text-base font-medium text-silver-700">{name}</span>
-                    <span className="text-sm font-normal text-silver-400">{size}</span>
-                  </div>
-                </div>
-              )
-            })}
+        {files.length > 0 && (
+          <div className="filelistbox">
+            {files.map((file) => (
+              <div key={file.name} className="mb-1 flex items-center gap-2">
+                <span className="text-base font-medium text-silver-700">{file.name}</span>
+                <span className="text-sm font-normal text-silver-400">{getByteSize(file.size)}</span>
+              </div>
+            ))}
           </div>
-          : <></>
-        }
+        )}
       </>
     );
   },

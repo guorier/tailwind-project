@@ -9,49 +9,20 @@ import {
   useFloating,
   useInteractions,
   useMergeRefs,
-  useRole,
 } from '@floating-ui/react';
-import type { MutableRefObject } from 'react';
-import { forwardRef, useState, type ComponentPropsWithoutRef } from 'react';
+import type { ComponentPropsWithoutRef, MutableRefObject } from 'react';
+import { forwardRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { mergeDeep } from "@/components/helpers/merge-deep";
-import { FlowbiteBoolean, FlowbitePositions, FlowbiteSizes, getTheme } from 'flowbite-react';
-import { DeepPartial } from '@reduxjs/toolkit';
-import type { FlowbiteModalBodyTheme } from './ModalBody';
+import { mergeDeep } from '@/components/helpers/merge-deep';
+import type { DeepPartial } from '@/types/theme';
+import modalTheme, { type ModalTheme } from '@styles/theme/modal.theme';
 import { ModalBody } from './ModalBody';
 import { ModalContext } from './ModalContext';
-import type { FlowbiteModalFooterTheme } from './ModalFooter';
 import { ModalFooter } from './ModalFooter';
-import type { FlowbiteModalHeaderTheme } from './ModalHeader';
 import { ModalHeader } from './ModalHeader';
 
-export interface FlowbiteModalTheme {
-  root: FlowbiteModalRootTheme;
-  content: FlowbiteModalContentTheme;
-  body: FlowbiteModalBodyTheme;
-  header: FlowbiteModalHeaderTheme;
-  footer: FlowbiteModalFooterTheme;
-}
-
-export interface FlowbiteModalRootTheme {
-  base: string;
-  show: FlowbiteBoolean;
-  sizes: ModalSizes;
-  positions: ModalPositions;
-}
-
-export interface FlowbiteModalContentTheme {
-  base: string;
-  inner: string;
-}
-
-export interface ModalPositions extends FlowbitePositions {
-  [key: string]: string;
-}
-
-export interface ModalSizes extends Omit<FlowbiteSizes, 'xs'> {
-  [key: string]: string;
-}
+type ModalPositions = ModalTheme['root']['positions'];
+type ModalSizes = ModalTheme['root']['sizes'];
 
 export interface ModalProps extends ComponentPropsWithoutRef<'div'> {
   onClose?: () => void;
@@ -61,7 +32,7 @@ export interface ModalProps extends ComponentPropsWithoutRef<'div'> {
   show?: boolean;
   size?: keyof ModalSizes;
   dismissible?: boolean;
-  theme?: DeepPartial<FlowbiteModalTheme>;
+  theme?: DeepPartial<ModalTheme>;
   initialFocus?: number | MutableRefObject<HTMLElement | null>;
 }
 
@@ -84,20 +55,19 @@ const ModalComponent = forwardRef<HTMLDivElement, ModalProps>(
     theirRef,
   ) => {
     const [headerId, setHeaderId] = useState<string | undefined>(undefined);
-    const theme = mergeDeep(getTheme().modal, customTheme);
+    const theme = mergeDeep(modalTheme, customTheme);
 
     const { context } = useFloating({
       open: show,
-      onOpenChange: () => onClose && onClose(),
+      onOpenChange: () => onClose?.(),
     });
 
     const ref = useMergeRefs([context.refs.setFloating, theirRef]);
 
-    const click = useClick(context);
-    const dismiss = useDismiss(context, { outsidePressEvent: 'mousedown', enabled: dismissible });
-    const role = useRole(context);
-
-    const { getFloatingProps } = useInteractions([click, dismiss, role]);
+    const { getFloatingProps } = useInteractions([
+      useClick(context),
+      useDismiss(context, { outsidePressEvent: 'mousedown', enabled: dismissible }),
+    ]);
 
     if (!show) {
       return null;
@@ -112,7 +82,7 @@ const ModalComponent = forwardRef<HTMLDivElement, ModalProps>(
             className={twMerge(
               theme.root.base,
               theme.root.positions[position],
-              show ? theme.root.show.on : theme.root.show.off,
+              theme.root.show.on,
               className,
             )}
             {...props}

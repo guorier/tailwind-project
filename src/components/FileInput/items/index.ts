@@ -1,1 +1,1 @@
-export { type FlowbiteFileInputTheme } from './file.interface'
+export { type FileInputTheme } from './file.interface';

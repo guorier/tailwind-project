@@ -4,13 +4,12 @@ import type { ComponentProps, FC, MouseEvent } from 'react';
 import { HiX } from 'react-icons/hi';
 import { twMerge } from 'tailwind-merge';
 import { mergeDeep } from "@/components/helpers/merge-deep";
-import { DeepPartial } from '@reduxjs/toolkit';
+import type { DeepPartial } from '@/types/theme';
+import type { ToastStyle } from '@/styles/theme/toast.theme';
 import { useToastContext } from './ToastContext';
 
-export interface FlowbiteToastToggleTheme {}
-
 export interface ToastToggleProps extends ComponentProps<'button'> {
-   theme?: DeepPartial<FlowbiteToastToggleTheme>;
+   theme?: DeepPartial<ToastStyle['toggle']>;
    xIcon?: FC<ComponentProps<'svg'>>;
    onDismiss?: () => void;
 }

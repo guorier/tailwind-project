@@ -1,22 +1,22 @@
-import { FlowbiteTextInputColors, FlowbiteTextInputSizes } from "flowbite-react";
+import type { InputColors, InputSizes } from "@/types/theme";
 
-export interface FlowbiteFileInputTheme {
-    root: FlowbiteFileInputRootTheme;
-    field: FlowbiteFileInputFieldTheme;
+export interface FileInputTheme {
+    root: FileInputRootTheme;
+    field: FileInputFieldTheme;
 }
 
-interface FlowbiteFileInputRootTheme {
+interface FileInputRootTheme {
     base: string;
 }
 
-interface FlowbiteFileInputFieldTheme {
+interface FileInputFieldTheme {
     base: string;
-    input: FlowbiteFileInputFieldInputTheme;
+    input: FileInputFieldInputTheme;
 }
 
-interface FlowbiteFileInputFieldInputTheme {
+interface FileInputFieldInputTheme {
     base: string;
     label: string;
-    colors: FlowbiteTextInputColors;
-    sizes: FlowbiteTextInputSizes;
+    colors: InputColors;
+    sizes: InputSizes;
 }

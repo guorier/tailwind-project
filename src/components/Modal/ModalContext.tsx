@@ -1,18 +1,18 @@
 'use client';
 
 import { createContext, useContext } from 'react';
-import type { FlowbiteModalTheme } from './Modal';
+import type { ModalTheme } from '@styles/theme/modal.theme';
 
-type ModalContext = {
-  theme: FlowbiteModalTheme;
+type ModalContextValue = {
+  theme: ModalTheme;
   popup?: boolean;
   setHeaderId: (id: string | undefined) => void;
   onClose?: () => void;
 };
 
-export const ModalContext = createContext<ModalContext | undefined>(undefined);
+export const ModalContext = createContext<ModalContextValue | undefined>(undefined);
 
-export function useModalContext(): ModalContext {
+export function useModalContext(): ModalContextValue {
   const context = useContext(ModalContext);
 
   if (!context) {

@@ -1,4 +1,2 @@
 export { TabItem } from './TabItem';
-export { Tabs } from './Tabs';
-export type { FlowbiteTabsTheme } from './Tabs';
-
+export { Tabs, type TabsProps, type TabsRef } from './Tabs';

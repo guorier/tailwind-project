@@ -1,7 +1,7 @@
 "use client"
 import React, { useState, ComponentProps, forwardRef } from "react";
 import { twMerge } from "tailwind-merge";
-import { DeepPartial } from "flowbite-react/lib/esm/types";
+import type { DeepPartial } from "@/types/theme";
 import { mergeDeep } from "@/components/helpers/merge-deep";
 import SearchBoxConfig, { SearchBoxStyle } from "@/styles/theme/search.theme";
 

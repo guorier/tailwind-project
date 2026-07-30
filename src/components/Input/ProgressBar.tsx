@@ -4,7 +4,7 @@ import React, { ComponentProps, useEffect } from "react";
 import { useState, forwardRef } from "react";
 import { twMerge } from "tailwind-merge";
 import { mergeDeep } from "@/components/helpers/merge-deep";
-import { DeepPartial } from "flowbite-react/lib/esm/types";
+import type { DeepPartial } from "@/types/theme";
 import Progresstheme from "@/styles/theme/progress.theme";
 
 interface ProgressProps extends Omit<ComponentProps<"input">, "ref" | "color"> {

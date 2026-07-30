@@ -1,19 +1,21 @@
 import type { Config } from 'tailwindcss';
 
+/** `h-[1px]` ~ `h-[1000px]` 형태의 임의값 클래스를 미리 생성한다. */
 const sizeClasses = (type: string) => Array.from({ length: 1000 }, (_, i) => `${type}-[${i + 1}px]`);
+
+/** `w-[1%]` ~ `w-[100%]` 형태의 임의값 클래스를 미리 생성한다. */
 const percentClasses = (type: string) => Array.from({ length: 100 }, (_, i) => `${type}-[${i + 1}%]`);
 
 const config: Config = {
   darkMode: ['class'],
   content: [
-    './src/components/**/*.{js,ts,jsx,tsx}',
     './src/**/*.{js,ts,jsx,tsx}',
-    './node_modules/flowbite-react/lib/**/*.js',
     './public/**/*.html'
   ],
+  // props 로 넘어오는 동적 크기 클래스가 purge 되지 않도록 미리 등록한다.
   safelist: [
-    ...sizeClasses('h'),  // 최소 너비 클래스
-    ...sizeClasses('min-h'),  // 최대 너비 클래스
+    ...sizeClasses('h'),
+    ...sizeClasses('min-h'),
     ...sizeClasses('max-h'),
     ...sizeClasses('w'),
     ...sizeClasses('min-w'),
@@ -433,6 +435,6 @@ const config: Config = {
       }
     }
   },
-  plugins: [require('flowbite/plugin'), require("tailwindcss-animate")],
+  plugins: [require('tailwindcss-animate')],
 };
 export default config;

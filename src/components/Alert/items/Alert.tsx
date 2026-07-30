@@ -3,7 +3,7 @@ import { FloatingOverlay, FloatingPortal } from "@floating-ui/react";
 import { forwardRef, type ComponentPropsWithoutRef } from "react";
 import { twMerge } from "tailwind-merge";
 import { mergeDeep } from "@/components/helpers/merge-deep";
-import { DeepPartial } from "@reduxjs/toolkit";
+import type { DeepPartial } from "@/types/theme";
 import Icons from '@/components/Icons';
 import { Iconclose } from "@/components/Iconclose";
 import AlertTheme from "@styles/theme/alert.theme";

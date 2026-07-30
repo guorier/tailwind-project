@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, forwardRef, ComponentProps } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { mergeDeep } from "@/components/helpers/merge-deep";
-import { DeepPartial } from "flowbite-react/lib/esm/types";
+import type { DeepPartial } from "@/types/theme";
 import SelectboxConfig, { SelectboxStyle } from '@/styles/theme/selectbox.theme'; // SelectBox의 기본 테마
 
 // Option 타입 정의: value와 label 속성을 가짐

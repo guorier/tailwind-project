@@ -1,6 +1,6 @@
 "use client"
 import React, { ComponentProps, forwardRef, useState } from "react";
-import { DeepPartial } from "flowbite-react/lib/esm/types";
+import type { DeepPartial } from "@/types/theme";
 import { mergeDeep } from "@/components/helpers/merge-deep";
 import { twMerge } from "tailwind-merge";
 import Icons from '@/components/Icons';

@@ -1,25 +1,17 @@
 'use client';
 
-import { useId, useLayoutEffect, type ComponentProps, type ElementType, type FC } from 'react';
+import type { ComponentProps, ElementType, FC } from 'react';
+import { useId, useLayoutEffect } from 'react';
 import { HiOutlineX } from 'react-icons/hi';
 import { twMerge } from 'tailwind-merge';
-import { mergeDeep } from "@/components/helpers/merge-deep";
-import { DeepPartial } from '@reduxjs/toolkit';
+import { mergeDeep } from '@/components/helpers/merge-deep';
+import type { DeepPartial } from '@/types/theme';
+import type { ModalTheme } from '@styles/theme/modal.theme';
 import { useModalContext } from './ModalContext';
-
-export interface FlowbiteModalHeaderTheme {
-  base: string;
-  popup: string;
-  title: string;
-  close: {
-    base: string;
-    icon: string;
-  };
-}
 
 export interface ModalHeaderProps extends ComponentProps<'div'> {
   as?: ElementType;
-  theme?: DeepPartial<FlowbiteModalHeaderTheme>;
+  theme?: DeepPartial<ModalTheme['header']>;
 }
 
 export const ModalHeader: FC<ModalHeaderProps> = ({
@@ -34,7 +26,6 @@ export const ModalHeader: FC<ModalHeaderProps> = ({
   const headerId = id || innerHeaderId;
 
   const { theme: rootTheme, popup, onClose, setHeaderId } = useModalContext();
-
   const theme = mergeDeep(rootTheme.header, customTheme);
 
   useLayoutEffect(() => {
