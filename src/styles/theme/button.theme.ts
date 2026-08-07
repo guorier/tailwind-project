@@ -56,9 +56,9 @@ const ButtonConfig: ButtonStyle = {
         },
     },
     border_radius: {
-        default: "px-3 rounded-none 11111111",
-        round: "px-3 rounded-md 222",
-        pill: "px-3 rounded-full 333",
+        default: "px-3 rounded-none",
+        round: "px-3 rounded-md",
+        pill: "px-3 rounded-full",
     },
     width: {
         /*  10px*/ "2.5": "w-2.5",

@@ -1,42 +1,72 @@
-import { TagS, TagY, TagP, TagG, TagSi, TagR, TagB } from "@/components/Tag";
+import { color, gallery } from "@/examples/icon";
 import DocPage from "@/components/DocPage";
-import * as root from "@/examples/icon";
+import ObjectParameter, { Parameter } from "../ObjectParameter";
 
-export default function CheckboxDoc() {
+/** 문서에 노출할 예제 순서. */
+const examples = [color, gallery];
+
+const iconProps: Parameter[] = [
+  {
+    parameter: "iName",
+    type: "string",
+    required: "Required",
+    description:
+      "아이콘 이름. 아래 목록의 이름을 그대로 넘깁니다. 없는 이름을 넘기면 아무것도 표시되지 않습니다.",
+  },
+  {
+    parameter: "original",
+    type: "boolean",
+    required: "Optional",
+    description:
+      "SVG 를 배경 이미지로 넣어 원본 색상을 유지합니다. 생략하면 마스크로 처리되어 bg-* 가 아이콘 색이 됩니다.",
+  },
+  {
+    parameter: "className",
+    type: "string",
+    required: "Optional",
+    description:
+      "크기는 size-*, 색은 bg-*(original 을 쓰지 않을 때)로 지정합니다.",
+  },
+  {
+    parameter: "title",
+    type: "string",
+    required: "Optional",
+    description: "마우스를 올렸을 때 표시할 설명. title 속성으로 전달됩니다.",
+  },
+  {
+    parameter: "onClick",
+    type: "() => void",
+    required: "Optional",
+    description: "클릭 핸들러. 커서 모양은 cursor-pointer 로 직접 지정합니다.",
+  },
+];
+
+export default function IconDoc() {
   return (
-    <div className='mx-auto max-w-7xl pt-6'>
-      <h3 className='mb-4 font-bold'>Icon</h3>
-      <div className="flex flex-col justify-center gap-4 p-8 text-white bg-[#1e293b] rounded-lg">
-        <div className="flex flex-col gap-1">
-          <TagS>&#60;<TagY>Icon</TagY></TagS>
-          <div className="pl-4">
-            <TagP>iName</TagP>
-            <TagS>=&#34;<TagG>아이콘명</TagG>&#34;</TagS>
-            <TagSi>&nbsp;&nbsp;&#47;&#47;아이콘명 입력</TagSi>
-          </div>
-          <div className="pl-4">
-            <TagP>iState</TagP>
-            <TagS>=&#34;<TagG>iconHover</TagG>&#34;</TagS>
-            <TagSi>&nbsp;&nbsp;&#47;&#47;아이콘 Hover시 스타일 적용</TagSi>
-          </div>
-          <TagS>&#47;&#62;</TagS>
+    <>
+      <div className="mx-auto max-w-7xl pt-6">
+        <h3 className="mb-2 font-bold">Icon</h3>
+        <p className="mb-8 font-medium text-gray-700">
+          프로젝트에 등록된 SVG 아이콘을 이름으로 불러옵니다. 색을 바꿔야 하는 아이콘은
+          마스크 방식(original 생략)으로, 원본 색을 그대로 써야 하는 아이콘은 original
+          로 사용합니다.
+        </p>
+
+        <div className="flex items-center gap-4 mb-4">
+          <h5 className="flex-none font-bold">Icons 속성</h5>
+          <div className="w-full border-t border-solid border-gray-300" />
         </div>
-        <div className="flex flex-col gap-3">
-          <div className='flex items-center gap-4'>
-            <h5 className='flex-none font-bold'>속성</h5>
-            <div className="w-full h-px bg-natural-300" />
-          </div>
-          <div className='flex items-start gap-4'>
-            <div>Icon</div>
-            <div className="leading-5">
-              <div><TagG>iName</TagG> : 사용할 아이콘의 이름을 문자열로 입력합니다</div>
-              <div><TagG>iState</TagG> : 아이콘에 hover 시 어떤 스타일을 적용할지 지정하는 선택 속성입니다.</div>
-            </div>
-          </div>
+        <div className="mb-10">
+          <ObjectParameter parameters={iconProps} />
+        </div>
+
+        <div className="flex items-center gap-4">
+          <h5 className="flex-none font-bold">예제</h5>
+          <div className="w-full border-t border-solid border-gray-300" />
         </div>
       </div>
 
-      <DocPage root={root} />
-    </div>
+      <DocPage root={examples} />
+    </>
   );
 }

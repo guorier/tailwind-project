@@ -1,1 +1,1 @@
-export * from "./editor.tiny";
+export { tiny } from './editor.tiny';

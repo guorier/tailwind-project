@@ -1,38 +1,70 @@
-import * as root from "@/examples/color";
+import { palette, state } from "@/examples/color";
 import DocPage from "@/components/DocPage";
+import ObjectParameter, { Parameter } from "../ObjectParameter";
+
+/** 문서에 노출할 예제 순서. */
+const examples = [palette, state];
+
+const usageRules: Parameter[] = [
+  {
+    parameter: "text-{색상}-{단계}",
+    type: "className",
+    required: "Optional",
+    description: "글자 색. 예: text-natural-900, text-error-100.",
+  },
+  {
+    parameter: "bg-{색상}-{단계}",
+    type: "className",
+    required: "Optional",
+    description: "배경색. 예: bg-primary-500, bg-line-100.",
+  },
+  {
+    parameter: "border-{색상}-{단계}",
+    type: "className",
+    required: "Optional",
+    description: "테두리 색. 예: border-line-200, border-gray-400.",
+  },
+  {
+    parameter: "단계",
+    type: "50 ~ 900",
+    required: "Optional",
+    description:
+      "숫자가 클수록 어둡습니다. warning · valid · error 는 100 하나만 있습니다.",
+  },
+  {
+    parameter: "colorsArray",
+    type: "@styles/theme/color.theme",
+    required: "Optional",
+    description:
+      "색상 값을 코드에서 직접 참조할 때 사용합니다. colorName 과 shades 를 가집니다.",
+  },
+];
 
 export default function ColorDoc() {
   return (
     <>
       <div className="mx-auto max-w-7xl pt-6">
-        <h3 className="mb-4 font-bold">Color</h3>
+        <h3 className="mb-2 font-bold">Color</h3>
+        <p className="mb-8 font-medium text-gray-700">
+          프로젝트 색상 팔레트입니다. tailwind.config.ts 에 등록돼 있어 Tailwind 클래스로
+          바로 쓸 수 있고, 값이 필요하면 color.theme 의 colorsArray 를 가져옵니다.
+        </p>
 
         <div className="flex items-center gap-4 mb-4">
-          <h5 className="flex-none font-bold">속성</h5>
-          <div className="w-full border-t border-solid border-gray-300"></div>
+          <h5 className="flex-none font-bold">사용 규칙</h5>
+          <div className="w-full border-t border-solid border-gray-300" />
+        </div>
+        <div className="mb-10">
+          <ObjectParameter parameters={usageRules} />
         </div>
 
-        <div className="flex flex-col gap-2 mb-6 font-medium text-gray-700">
-          <p>프로젝트 컬러 팔레트는 Tailwind className 규칙으로 적용합니다.</p>
-          <p>텍스트/배경 컬러는 <strong>text-*</strong>, <strong>bg-*</strong> 접두사를 사용합니다.</p>
-        </div>
-
-        <div className="grid grid-cols-[126px_minmax(0,_1fr)] items-start gap-4 mb-8">
-          <div className="font-semibold">ClassName 규칙</div>
-          <div className="leading-6 space-y-1">
-            <div><strong>text-색상-명도</strong> : 텍스트 색상</div>
-            <div><strong>bg-색상-명도</strong> : 배경 색상</div>
-            <div><strong>색상</strong> : 팔레트에 정의된 색상 이름</div>
-            <div><strong>명도</strong> : 100 ~ 900 (숫자가 클수록 더 어두움)</div>
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-2 mb-8 font-medium text-gray-700">
-          <p>아래 예제 섹션에서는 팔레트의 색상/명도 조합을 표 형태로 시각화하여 확인할 수 있습니다.</p>
+        <div className="flex items-center gap-4">
+          <h5 className="flex-none font-bold">예제</h5>
+          <div className="w-full border-t border-solid border-gray-300" />
         </div>
       </div>
 
-      <DocPage root={root} />
+      <DocPage root={examples} />
     </>
   );
 }

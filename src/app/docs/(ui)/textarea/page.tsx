@@ -1,43 +1,83 @@
-import { TagS, TagY, TagP, TagG, TagSi, TagR, TagB } from "@/components/Tag";
+import { resize, colors, size } from "@/examples/textarea";
 import DocPage from "@/components/DocPage";
-import * as root from "@/examples/textarea";
+import ObjectParameter, { Parameter } from "../ObjectParameter";
+
+/** 문서에 노출할 예제 순서. */
+const examples = [resize, colors, size];
+
+const textareaProps: Parameter[] = [
+  {
+    parameter: "resize",
+    type: '"none" | "resize" | "x-axis" | "y-axis"',
+    required: "Optional",
+    description:
+      '사용자가 드래그해 크기를 조절할 수 있는 방향. 기본값 "resize"(가로·세로 모두).',
+  },
+  {
+    parameter: "color",
+    type: '"base" | "primary" | "secondary" | "warning" | "error" | "valid"',
+    required: "Optional",
+    description:
+      '테두리·포커스 색상. 기본값 "base". warning·error·valid 는 글자색도 함께 변경됩니다.',
+  },
+  {
+    parameter: "height",
+    type: "테마 높이 키",
+    required: "Optional",
+    description:
+      '높이. 기본값 "auto". 테마에 없는 값은 h-{값} 클래스로 처리됩니다.',
+  },
+  {
+    parameter: "width",
+    type: '"auto" | "full" | 테마 너비 키',
+    required: "Optional",
+    description: '너비. 기본값 "auto".',
+  },
+  {
+    parameter: "disabled",
+    type: "boolean",
+    required: "Optional",
+    description: "비활성화 여부.",
+  },
+  {
+    parameter: "theme",
+    type: "DeepPartial<TextareaStyle>",
+    required: "Optional",
+    description: "기본 테마에 병합할 부분 테마.",
+  },
+  {
+    parameter: "className",
+    type: "string",
+    required: "Optional",
+    description: "외부 스타일. twMerge 로 병합되어 테마 클래스를 덮어씁니다.",
+  },
+];
 
 export default function TextareaDoc() {
   return (
     <>
       <div className="mx-auto max-w-7xl pt-6">
-        <h3 className="mb-4 font-bold">Textarea</h3>
+        <h3 className="mb-2 font-bold">Textarea</h3>
+        <p className="mb-8 font-medium text-gray-700">
+          여러 줄 텍스트 입력을 위한 컴포넌트입니다. 네이티브 textarea 속성을 그대로
+          받으며, 크기 조절 방향과 색상을 테마로 관리합니다.
+        </p>
 
         <div className="flex items-center gap-4 mb-4">
-          <h5 className="flex-none font-bold">속성</h5>
-          <div className="w-full border-t border-solid border-gray-300"></div>
+          <h5 className="flex-none font-bold">Textarea 속성</h5>
+          <div className="w-full border-t border-solid border-gray-300" />
+        </div>
+        <div className="mb-10">
+          <ObjectParameter parameters={textareaProps} />
         </div>
 
-        <div className="flex flex-col gap-2 mb-6 font-medium text-gray-700">
-          <p>Textarea 컴포넌트는 여러 줄의 텍스트 입력을 위한 UI 요소입니다.</p>
-          <p>크기 조절, 비활성화, 포커스 및 상태별 스타일을 제공합니다.</p>
-        </div>
-
-        <div className="grid grid-cols-[126px_minmax(0,_1fr)] items-start gap-4 mb-8">
-          <div className="font-semibold">Textarea</div>
-          <div className="leading-6 space-y-1">
-            <div><strong>width</strong> : 입력 영역의 너비 설정</div>
-            <div><strong>height</strong> : 입력 영역의 높이 설정</div>
-            <div><strong>resize</strong> : 크기 조절 방식 (none, resize, x-axis, y-axis)</div>
-            <div><strong>disabled</strong> : 입력 비활성화 여부</div>
-            <div><strong>className</strong> : 외부 스타일 적용</div>
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-2 mb-8 font-medium text-gray-700">
-          <p>
-            아래 예제 섹션에서는 기본 Textarea, 크기 조절 옵션,
-            비활성화 및 상태별 스타일을 확인할 수 있습니다.
-          </p>
+        <div className="flex items-center gap-4">
+          <h5 className="flex-none font-bold">예제</h5>
+          <div className="w-full border-t border-solid border-gray-300" />
         </div>
       </div>
 
-      <DocPage root={root} />
+      <DocPage root={examples} />
     </>
   );
 }

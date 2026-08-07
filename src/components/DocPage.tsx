@@ -2,13 +2,20 @@ import { CodeData, CodeDemo } from "@/components/helpers/examples/code-demo";
 import ObjectParameter, { Parameter } from "../app/docs/(ui)/ObjectParameter";
 import { Container } from "@/components/Container";
 
-export default function DocPage({ parameters, root }: { parameters?: Parameter[], root: { [key: string]: CodeData } }) {
+/**
+ * root 는 예제 모듈 전체(`import * as root`) 또는 순서를 지정한 배열을 받는다.
+ * 네임스페이스 객체의 키 순서는 번들러가 알파벳순으로 정렬하므로,
+ * 표시 순서를 고정해야 할 때는 배열로 넘긴다.
+ */
+export default function DocPage({ parameters, root }: { parameters?: Parameter[], root: { [key: string]: CodeData } | CodeData[] }) {
+  const items = Array.isArray(root) ? root : Object.values(root);
+
   return (
     <Container>
       {parameters && <ObjectParameter parameters={parameters} />}
       <div className="mx-auto flex min-w-0 flex-col pt-6">
-        {Object.entries(root).map(([key, code]) =>
-          <CodeDemo key={key} data={code} />
+        {items.map((code, i) =>
+          <CodeDemo key={i} data={code} />
         )}
       </div>
     </Container>

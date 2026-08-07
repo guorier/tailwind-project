@@ -1,6 +1,6 @@
 const Alerttheme = {
     root: {
-        base: "fixed top-0 right-0 left-0 z-50 overflow-y-auto overflow-x-hidden items-center justify-center h-modal h-screen ---000---",
+        base: "fixed top-0 right-0 left-0 z-50 overflow-y-auto overflow-x-hidden items-center justify-center h-modal h-screen",
         show: {
             on: "flex bg-silver-900 bg-opacity-50",
             off: "hidden",

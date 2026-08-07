@@ -1,1 +1,2 @@
-export { root } from './toast.root';
+export { types } from './toast.types';
+export { async } from './toast.async';

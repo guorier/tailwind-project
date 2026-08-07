@@ -16,6 +16,7 @@ interface CodeData {
   code: Code
   component: React.ReactNode
   title?: string
+  description?: string
 }
 
 export function CodeDemo({ data }: { data: CodeData }) {
@@ -36,6 +37,16 @@ export function CodeDemo({ data }: { data: CodeData }) {
 
   return (
     <div className="mt-8 space-y-6">
+      {/* SECTION HEADING */}
+      {data.title && (
+        <div className="space-y-1">
+          <h5 className="font-bold">{data.title}</h5>
+          {data.description && (
+            <p className="text-sm text-gray-600">{data.description}</p>
+          )}
+        </div>
+      )}
+
       {/* PREVIEW */}
       <div className="rounded-xl border border-gray-200 bg-white p-6">
         {data.component}

@@ -1,1 +1,2 @@
-export { root } from "./tooltip.root";
+export { basic } from './tooltip.basic';
+export { position } from './tooltip.position';

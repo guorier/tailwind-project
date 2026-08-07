@@ -1,53 +1,94 @@
-import * as root from "@/examples/button";
+import { basic, size, colors, icon } from "@/examples/button";
 import DocPage from "@/components/DocPage";
+import ObjectParameter, { Parameter } from "../ObjectParameter";
+
+/** 문서에 노출할 예제 순서. */
+const examples = [basic, size, colors, icon];
+
+const buttonProps: Parameter[] = [
+  {
+    parameter: "children",
+    type: "ReactNode",
+    required: "Optional",
+    description:
+      "버튼 내용. 내부가 flex + gap-2 이므로 아이콘을 앞뒤에 두면 그 위치대로 배치됩니다.",
+  },
+  {
+    parameter: "styleType",
+    type: '"default" | "outline"',
+    required: "Optional",
+    description: '기본값 "default"(배경 채움). "outline" 은 테두리만 표시합니다.',
+  },
+  {
+    parameter: "radius",
+    type: '"default" | "round" | "pill"',
+    required: "Optional",
+    description: '모서리 형태. 기본값 "default"(각형).',
+  },
+  {
+    parameter: "colors",
+    type: '"base" | "primary" | "secondary" | "gray" | "warning" | "error" | "valid" | HEX 문자열',
+    required: "Optional",
+    description:
+      '기본값 "base". HEX(#2b7fff)를 넘기면 styleType 에 따라 배경색 또는 테두리색으로 적용됩니다.',
+  },
+  {
+    parameter: "height",
+    type: '"24" | "28" | "32" | "36" | "40" | "42" | "44" | "48" | "56"',
+    required: "Optional",
+    description: '높이(px). 기본값 "40". 높이에 맞춰 글자 크기도 함께 바뀝니다.',
+  },
+  {
+    parameter: "width",
+    type: '"auto" | "full" | 테마 너비 키',
+    required: "Optional",
+    description: '너비. 기본값 "auto"(내용에 맞춤).',
+  },
+  {
+    parameter: "disabled",
+    type: "boolean",
+    required: "Optional",
+    description: "비활성화 여부. colors 와 무관하게 회색으로 표시됩니다.",
+  },
+  {
+    parameter: "theme",
+    type: "DeepPartial<ButtonStyle>",
+    required: "Optional",
+    description: "기본 테마에 병합할 부분 테마.",
+  },
+  {
+    parameter: "className",
+    type: "string",
+    required: "Optional",
+    description: "외부 스타일. twMerge 로 병합되어 테마 클래스를 덮어씁니다.",
+  },
+];
 
 export default function ButtonDoc() {
   return (
     <>
       <div className="mx-auto max-w-7xl pt-6">
-        <h3 className="mb-4 font-bold">Button</h3>
+        <h3 className="mb-2 font-bold">Button</h3>
+        <p className="mb-8 font-medium text-gray-700">
+          클릭 액션을 수행하는 기본 UI 요소입니다. 채움·테두리 두 가지 스타일과 모서리
+          형태, 색상, 높이를 조합해 사용합니다.
+        </p>
 
         <div className="flex items-center gap-4 mb-4">
-          <h5 className="flex-none font-bold">속성</h5>
-          <div className="w-full border-t border-solid border-gray-300"></div>
+          <h5 className="flex-none font-bold">Button 속성</h5>
+          <div className="w-full border-t border-solid border-gray-300" />
+        </div>
+        <div className="mb-10">
+          <ObjectParameter parameters={buttonProps} />
         </div>
 
-        <div className="flex flex-col gap-2 mb-6 font-medium text-gray-700">
-          <p>Button 컴포넌트는 클릭 액션을 수행하는 기본 UI 요소입니다.</p>
-          <p>라운드 처리, 아웃라인, 컬러 테마, 크기(height/width) 및 비활성화 상태를 제공합니다.</p>
-        </div>
-
-        <div className="grid grid-cols-[126px_minmax(0,_1fr)] items-start gap-4 mb-8">
-          <div className="font-semibold">Button</div>
-          <div className="leading-6 space-y-1">
-            <div><strong>children</strong> : 버튼 내부 콘텐츠</div>
-            <div><strong>radius</strong> : 모서리 스타일 (round, pill)</div>
-            <div><strong>colors</strong> : 색상 테마 (base, primary, secondary, warning, valid, error)</div>
-            <div><strong>width</strong> : 너비 설정</div>
-            <div><strong>height</strong> : 높이 설정 (24, 36, 40, 44, 48, 56 등)</div>
-            <div><strong>styleType</strong> : 버튼 스타일 (default, outline)</div>
-            <div><strong>disabled</strong> : 비활성화 여부</div>
-            <div><strong>className</strong> : 외부 스타일 적용</div>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-[126px_minmax(0,_1fr)] items-start gap-4 mb-8">
-          <div className="font-semibold">아이콘 사용</div>
-          <div className="leading-6 space-y-1">
-            <div>왼쪽 아이콘: <strong>children</strong> 앞에 아이콘 컴포넌트 배치</div>
-            <div>오른쪽 아이콘: <strong>children</strong> 뒤에 아이콘 컴포넌트 배치</div>
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-2 mb-8 font-medium text-gray-700">
-          <p>
-            아래 예제 섹션에서는 기본/아웃라인 버튼, radius 옵션, height별 크기,
-            아이콘 조합, 컬러 테마 및 disabled 상태를 확인할 수 있습니다.
-          </p>
+        <div className="flex items-center gap-4">
+          <h5 className="flex-none font-bold">예제</h5>
+          <div className="w-full border-t border-solid border-gray-300" />
         </div>
       </div>
 
-      <DocPage root={root} />
+      <DocPage root={examples} />
     </>
   );
 }

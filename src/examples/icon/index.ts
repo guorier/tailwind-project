@@ -1,1 +1,2 @@
-export { icon } from './icon.root';
+export { color } from './icon.color';
+export { gallery } from './icon.gallery';

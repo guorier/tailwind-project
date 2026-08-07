@@ -1,52 +1,102 @@
-import { TagS, TagY, TagP, TagG, TagSi, TagR, TagB } from "@/components/Tag";
+import { basic, modern, shadcn } from "@/examples/pagination";
 import DocPage from "@/components/DocPage";
-import * as root from "@/examples/pagination";
+import ObjectParameter, { Parameter } from "../ObjectParameter";
+
+/** 문서에 노출할 예제 순서. */
+const examples = [basic, modern, shadcn];
+
+const paginationProps: Parameter[] = [
+  {
+    parameter: "currentPage",
+    type: "number",
+    required: "Required",
+    description: "현재 페이지 번호(1부터 시작). 컴포넌트는 상태를 갖지 않습니다.",
+  },
+  {
+    parameter: "totalPages",
+    type: "number",
+    required: "Required",
+    description: "전체 페이지 개수.",
+  },
+  {
+    parameter: "onPageChange",
+    type: "(page: number) => void",
+    required: "Required",
+    description:
+      "페이지 버튼을 눌렀을 때 호출됩니다. 여기서 상태를 갱신하고 데이터를 다시 불러옵니다.",
+  },
+  {
+    parameter: "pageRangeDisplayed",
+    type: "number",
+    required: "Optional",
+    description:
+      "한 번에 노출할 페이지 번호 개수. 기본값 5. Pagination 에만 있습니다.",
+  },
+  {
+    parameter: "theme",
+    type: "DeepPartial<PagingTheme>",
+    required: "Optional",
+    description: "기본 테마에 병합할 부분 테마.",
+  },
+];
+
+const variantProps: Parameter[] = [
+  {
+    parameter: "Pagination",
+    type: "@/components/Pagination/Pagination",
+    required: "Optional",
+    description:
+      "기본형. 현재 페이지를 가운데 두고 pageRangeDisplayed 개수만큼 번호를 노출합니다.",
+  },
+  {
+    parameter: "ModernPagination",
+    type: "@/components/Pagination/CustomPagination",
+    required: "Optional",
+    description:
+      "페이지가 많을 때 사용. 첫·마지막 페이지 번호와 생략 기호(...)를 자동으로 넣습니다. 노출 개수는 5로 고정입니다.",
+  },
+  {
+    parameter: "ui/pagination",
+    type: "@/components/ui/pagination",
+    required: "Optional",
+    description:
+      "shadcn 링크형. 페이지마다 고유 URL 이 필요할 때 쓰며 번호 계산은 직접 해야 합니다.",
+  },
+];
 
 export default function PaginationDoc() {
-
   return (
     <>
-      <div className='mx-auto max-w-7xl pt-6'>
-        <h3 className='mb-4 font-bold'>Pagination</h3>
+      <div className="mx-auto max-w-7xl pt-6">
+        <h3 className="mb-2 font-bold">Pagination</h3>
+        <p className="mb-8 font-medium text-gray-700">
+          페이지 이동 UI 입니다. 상태를 직접 관리하는 버튼형 두 가지와 링크형 한 가지를
+          제공하며, 버튼형은 모두 같은 속성을 사용합니다.
+        </p>
 
-        <div className='flex items-center gap-4 mb-4'>
-          <h5 className='flex-none font-bold'>속성</h5>
-          <div className="w-full border-t border-solid border-gray-300"></div>
+        <div className="flex items-center gap-4 mb-4">
+          <h5 className="flex-none font-bold">종류</h5>
+          <div className="w-full border-t border-solid border-gray-300" />
+        </div>
+        <div className="mb-10">
+          <ObjectParameter parameters={variantProps} />
         </div>
 
-        <div className="flex flex-col gap-2 mb-6 font-medium text-gray-700">
-          <p>Pagination 컴포넌트는 기본적인 페이지 이동 UI를 제공합니다.</p>
-          <p>아래 속성을 활용하여 현재 페이지 상태를 제어하고, 다음/이전 페이지 이동을 구현할 수 있습니다.</p>
+        <div className="flex items-center gap-4 mb-4">
+          <h5 className="flex-none font-bold">Pagination / ModernPagination 속성</h5>
+          <div className="w-full border-t border-solid border-gray-300" />
+        </div>
+        <div className="mb-10">
+          <ObjectParameter parameters={paginationProps} />
         </div>
 
-        <div className="grid grid-cols-[126px_minmax(0,_1fr)] items-start gap-4 mb-8">
-          <div className="font-semibold">Pagination</div>
-          <div className="leading-6">
-            <div><strong>currentPage</strong> : 현재 보고 있는 페이지 번호</div>
-            <div><strong>totalPages</strong> : 전체 페이지 개수</div>
-            <div className="flex items-start">
-              <strong>onPageChange</strong>&nbsp;:&nbsp;
-              <span className="break-keep">
-                페이지가 변경될 때 호출되는 함수입니다.
-                사용자가 특정 페이지 버튼을 클릭하면 해당 함수가 실행되어
-                UI 상태와 데이터를 갱신합니다.
-              </span>
-            </div>
-          </div>
+        <div className="flex items-center gap-4">
+          <h5 className="flex-none font-bold">예제</h5>
+          <div className="w-full border-t border-solid border-gray-300" />
         </div>
-
-        <div className="grid grid-cols-[126px_minmax(0,_1fr)] items-start gap-4 mb-8">
-          <div className="font-semibold">ModernPagination</div>
-          <div className="leading-6">
-            <div>• 많은 페이지를 효율적으로 탐색할 수 있도록 구성된 확장형 페이지네이션입니다.</div>
-            <div>• 현재 페이지를 중심으로 일정 범위(예: 5개)의 페이지 번호를 노출합니다.</div>
-            <div>• 처음/마지막 페이지로 빠르게 이동할 수 있는 링크를 제공합니다.</div>
-            <div>• 페이지가 많은 경우 중간에 <code>…</code> 표시를 삽입해 가독성과 탐색성을 높입니다.</div>
-          </div>
-        </div>
-
       </div>
-      <DocPage root={root} />
+
+      <DocPage root={examples} />
     </>
   );
 }

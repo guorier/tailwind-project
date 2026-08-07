@@ -1,1 +1,1 @@
-export { root } from './foldertree.root';
+export { basic } from './foldertree.basic';

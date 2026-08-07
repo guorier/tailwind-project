@@ -9,6 +9,7 @@ export interface TextInputStyle {
   };
   border_radius: ObjectString;
   width: ObjectString;
+  height: ObjectString;
 }
 
 const InputConfig: TextInputStyle = {
@@ -107,8 +108,19 @@ const InputConfig: TextInputStyle = {
     /*320px*/ "80": "w-80",
     /*384px*/ "96": "w-96",
     /*400px*/ "100": "w-100",
-    "auto": "w-auto", 
-    "full": "w-full", 
+    "auto": "w-auto",
+    "full": "w-full",
+  },
+  height: {
+    "24": "h-6 text-xs",
+    "28": "h-7 text-xs",
+    "32": "h-8 text-xs",
+    "36": "h-9 text-xs",
+    "40": "h-10 text-xs",
+    "42": "h-[42px] text-sm",
+    "44": "h-11 text-sm",
+    "48": "h-12 text-sm",
+    "56": "h-14",
   },
 };
 export default InputConfig

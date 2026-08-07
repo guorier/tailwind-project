@@ -1,1 +1,2 @@
-export { root } from './accordion.root';
+export { single } from './accordion.single';
+export { multiple } from './accordion.multiple';

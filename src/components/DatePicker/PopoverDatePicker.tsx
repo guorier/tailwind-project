@@ -90,7 +90,7 @@ export const PopoverDatePicker = ({
         <PopoverContent
           align="start"
           sideOffset={4}
-          className="p-0 w-auto  absolute left-0 111111111111111"
+          className="p-0 w-auto absolute left-0"
         >
           <Calendar
             mode="single"
