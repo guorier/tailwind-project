@@ -21,7 +21,7 @@ export const Toggle = forwardRef<HTMLInputElement, ToggleProps>(
     theme: customTheme = {},
     type = "default",
     toggleId,
-    width = "9.5",
+    width = "10",
     displayStatus = false,
     ...props
   }, ref) => {
@@ -42,7 +42,7 @@ export const Toggle = forwardRef<HTMLInputElement, ToggleProps>(
     const widthClass = theme.width?.[width] || `w-${String(width)}`;
 
     return (
-      <label htmlFor={uuid} className={twMerge(theme.base, className)}>
+      <label htmlFor={uuid} className={twMerge(theme.base, className,)}>
         <input type="checkbox" ref={ref} id={uuid}
           className={theme.toggle}
           onChange={onChange}
