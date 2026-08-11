@@ -7,7 +7,7 @@ import Icons from "@/components/Icons";
 import { ColumnTitle, heightKeys } from "./parts";
 
 const iconWhite = "size-4 bg-white";
-const iconDark = "size-4";
+const iconDark = "size-4 bg-black";
 
 function Component() {
   return (
