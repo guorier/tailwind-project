@@ -1,19 +1,19 @@
 "use client";
 
-import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Menu } from "lucide-react";
 
+import ProjectLogo from "@/components/ProjectLogo";
 import {
   NavigationMenu,
-  NavigationMenuList,
-  NavigationMenuItem,
-  NavigationMenuTrigger,
   NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuList,
+  NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 export interface NavItem {
   name: string;
@@ -21,44 +21,36 @@ export interface NavItem {
   children?: NavItem[];
 }
 
-export default function Nav({
-  brand,
-  navItems,
-}: {
-  brand: { img?: string; title: string };
-  navItems: NavItem[];
-}) {
+export default function Nav({ navItems }: { navItems: NavItem[] }) {
   const pathname = usePathname();
 
   return (
     <header className="w-full">
       <div className="flex h-14 w-full items-center justify-between">
-        {/* 브랜드 */}
-        <Link href="/" className="flex items-center gap-2">
-          {brand?.img ? (
-            <img src={brand.img} className="h-6" alt="logo" />
-          ) : (
-            <span className="text-xl font-semibold">{brand.title}</span>
-          )}
+        <Link
+          href="/"
+          className="rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+          aria-label="Common UI home"
+        >
+          <ProjectLogo />
         </Link>
 
-        {/* 데스크탑 메뉴 */}
-        <NavigationMenu className="hidden md:flex w-29">
+        <NavigationMenu className="hidden w-29 md:flex">
           <NavigationMenuList className="flex items-center gap-2">
             {navItems.map((navItem) => (
-              <NavigationMenuItem key={navItem.name} className=" h-14 flex items-center">
-                {navItem.children && navItem.children.length ? (
+              <NavigationMenuItem key={navItem.name} className="flex h-14 items-center">
+                {navItem.children?.length ? (
                   <>
-                    <NavigationMenuTrigger className="w-40 h-full flex justify-between items-center px-3 text-sm">
+                    <NavigationMenuTrigger className="flex h-full w-40 items-center justify-between px-3 text-sm">
                       {navItem.name}
                     </NavigationMenuTrigger>
-                    <NavigationMenuContent className="p-3 !w-40">
-                      <div className="flex flex-col gap-1 w-full">
+                    <NavigationMenuContent className="!w-40 p-3">
+                      <div className="flex w-full flex-col gap-1">
                         {navItem.children.map((child) => (
                           <Link
                             key={child.name}
                             href={`/docs${child.link}`}
-                            className={`rounded px-2 py-1 w-full text-sm hover:bg-accent hover:text-accent-foreground ${
+                            className={`w-full rounded px-2 py-1 text-sm hover:bg-accent hover:text-accent-foreground ${
                               pathname === `/docs${child.link}`
                                 ? "bg-accent text-accent-foreground"
                                 : ""
@@ -75,7 +67,7 @@ export default function Nav({
                     href={`/docs${navItem.link}`}
                     className={`inline-flex h-full items-center px-3 text-sm ${
                       pathname === `/docs${navItem.link}`
-                        ? "text-primary font-medium"
+                        ? "font-medium text-primary"
                         : "text-muted-foreground hover:text-foreground"
                     }`}
                   >
@@ -87,12 +79,11 @@ export default function Nav({
           </NavigationMenuList>
         </NavigationMenu>
 
-        {/* 모바일 메뉴 */}
-        <div className="md:hidden ml-auto">
+        <div className="ml-auto md:hidden">
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="outline" size="icon">
-                ☰
+              <Button variant="outline" size="icon" aria-label="Open navigation menu">
+                <Menu className="size-4" />
               </Button>
             </SheetTrigger>
 
@@ -100,9 +91,9 @@ export default function Nav({
               <div className="mt-6 flex flex-col gap-4">
                 {navItems.map((navItem) => (
                   <div key={navItem.name}>
-                    {navItem.children && navItem.children.length ? (
+                    {navItem.children?.length ? (
                       <details className="group">
-                        <summary className="cursor-pointer text-sm font-medium py-2">
+                        <summary className="cursor-pointer py-2 text-sm font-medium">
                           {navItem.name}
                         </summary>
                         <div className="ml-3 flex flex-col gap-2">
@@ -110,9 +101,9 @@ export default function Nav({
                             <Link
                               key={child.name}
                               href={`/docs${child.link}`}
-                              className={`block text-sm py-1 ${
+                              className={`block py-1 text-sm ${
                                 pathname === `/docs${child.link}`
-                                  ? "text-primary font-medium"
+                                  ? "font-medium text-primary"
                                   : "text-muted-foreground hover:text-foreground"
                               }`}
                             >
@@ -124,9 +115,9 @@ export default function Nav({
                     ) : (
                       <Link
                         href={`/docs${navItem.link}`}
-                        className={`block text-sm py-2 ${
+                        className={`block py-2 text-sm ${
                           pathname === `/docs${navItem.link}`
-                            ? "text-primary font-medium"
+                            ? "font-medium text-primary"
                             : "text-muted-foreground hover:text-foreground"
                         }`}
                       >
