@@ -48,12 +48,12 @@ export function CodeDemo({ data }: { data: CodeData }) {
       )}
 
       {/* PREVIEW */}
-      <div className="rounded-xl border border-gray-200 bg-white p-6">
+      <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white p-4 md:p-6">
         {data.component}
       </div>
 
       {/* CODE BLOCK + COPY BUTTON */}
-      <div className="relative">
+      <div className="relative min-w-0">
         <button
           type="button"
           onClick={handleCopy}

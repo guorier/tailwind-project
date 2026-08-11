@@ -18,8 +18,8 @@ export interface Parameter {
 
 export default function ObjectParameter({ parameters }: { parameters: Parameter[] }) {
   return (
-    <div className="w-full overflow-x-auto">
-      <Table>
+    <div className="w-full min-w-0 overflow-x-auto">
+      <Table className="min-w-[640px]">
         <TableHeader>
           <TableRow>
             <TableHead>parameter</TableHead>

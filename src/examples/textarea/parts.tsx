@@ -32,9 +32,13 @@ export const ColumnTitle = ({ children }: { children: ReactNode }) => (
   </div>
 );
 
-/** 라벨 컬럼 + 예제 컬럼으로 구성된 비교 그리드. */
+/**
+ * 라벨 컬럼 + 예제 컬럼으로 구성된 비교 그리드.
+ * 좁은 화면에서 열이 짜부라지면 라벨이 세로로 쪼개지므로,
+ * 최소 폭을 지켜 미리보기 박스 안에서 가로 스크롤되게 한다.
+ */
 export const CompareGrid = ({ children }: { children: ReactNode }) => (
-  <div className="grid grid-cols-[136px_minmax(0,1fr)] items-center gap-6">
+  <div className="grid min-w-[560px] grid-cols-[136px_minmax(0,1fr)] items-center gap-6">
     {children}
   </div>
 );

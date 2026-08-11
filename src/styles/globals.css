@@ -8,6 +8,9 @@
 @layer base {
   html {@apply font-pretendard font-normal text-base leading-inherit;}
 
+  /* 특정 요소가 넘쳐도 페이지 전체가 가로로 밀리지 않게 한다. */
+  body {@apply overflow-x-hidden;}
+
   ::-webkit-scrollbar {
     width: 6px;
     height: 6px;

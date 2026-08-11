@@ -3,45 +3,53 @@
 import React from "react";
 import { CodeData } from "@/components/helpers/examples/code-demo";
 import { Checkbox } from "@/components/Checkbox/Checkbox";
-import { CompareGrid, StateLabels, ColumnTitle, Row, stateLabels } from "./parts";
+import {
+  CompareColumn,
+  CompareColumns,
+  CompareGrid,
+  ColumnTitle,
+  Row,
+  StateLabels,
+  stateLabels,
+} from "./parts";
 
 function Component() {
   return (
     <CompareGrid>
       <StateLabels items={stateLabels} />
-      <div className="grid grid-cols-4 items-center gap-4">
-        <div className="flex flex-col items-center gap-4">
+      <CompareColumns>
+        <CompareColumn>
           <ColumnTitle>Small</ColumnTitle>
           <Row><Checkbox label="텍스트 내용" /></Row>
           <Row><Checkbox label="텍스트 내용" checked /></Row>
           <Row><Checkbox label="텍스트 내용" disabled /></Row>
           <Row><Checkbox label="텍스트 내용" disabled checked /></Row>
-        </div>
+        </CompareColumn>
 
-        <div className="flex flex-col items-center gap-4">
+        <CompareColumn>
           <ColumnTitle>Large</ColumnTitle>
-          <Checkbox label="텍스트 내용" sizes="lg" />
-          <Checkbox label="텍스트 내용" sizes="lg" checked />
-          <Checkbox label="텍스트 내용" sizes="lg" disabled />
-          <Checkbox label="텍스트 내용" sizes="lg" disabled checked />
-        </div>
+          <Row><Checkbox label="텍스트 내용" sizes="lg" /></Row>
+          <Row><Checkbox label="텍스트 내용" sizes="lg" checked /></Row>
+          <Row><Checkbox label="텍스트 내용" sizes="lg" disabled /></Row>
+          <Row><Checkbox label="텍스트 내용" sizes="lg" disabled checked /></Row>
+        </CompareColumn>
 
-        <div className="flex flex-col items-center gap-4">
+        <CompareColumn>
           <ColumnTitle>Round : Small</ColumnTitle>
           <Row><Checkbox label="텍스트 내용" borderRadius="round" /></Row>
           <Row><Checkbox label="텍스트 내용" borderRadius="round" checked /></Row>
           <Row><Checkbox label="텍스트 내용" borderRadius="round" disabled /></Row>
           <Row><Checkbox label="텍스트 내용" borderRadius="round" disabled checked /></Row>
-        </div>
+        </CompareColumn>
 
-        <div className="flex flex-col items-center gap-4">
+        <CompareColumn>
           <ColumnTitle>Round : Large</ColumnTitle>
-          <Checkbox label="텍스트 내용" borderRadius="round" sizes="lg" />
-          <Checkbox label="텍스트 내용" borderRadius="round" sizes="lg" checked />
-          <Checkbox label="텍스트 내용" borderRadius="round" sizes="lg" disabled />
-          <Checkbox label="텍스트 내용" borderRadius="round" sizes="lg" disabled checked />
-        </div>
-      </div>
+          <Row><Checkbox label="텍스트 내용" borderRadius="round" sizes="lg" /></Row>
+          <Row><Checkbox label="텍스트 내용" borderRadius="round" sizes="lg" checked /></Row>
+          <Row><Checkbox label="텍스트 내용" borderRadius="round" sizes="lg" disabled /></Row>
+          <Row><Checkbox label="텍스트 내용" borderRadius="round" sizes="lg" disabled checked /></Row>
+        </CompareColumn>
+      </CompareColumns>
     </CompareGrid>
   );
 }

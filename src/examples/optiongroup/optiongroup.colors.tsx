@@ -4,7 +4,13 @@ import React from "react";
 import { CodeData } from "@/components/helpers/examples/code-demo";
 import { Checkbox } from "@/components/Checkbox/Checkbox";
 import { Radio } from "@/components/Radio/Radio";
-import { CompareGrid, StateLabels, ColumnTitle, colorLabels } from "./parts";
+import {
+  CompareColumns,
+  CompareGrid,
+  ColumnTitle,
+  StateLabels,
+  colorLabels,
+} from "./parts";
 
 const colorKeys = ["base", "primary", "secondary", "warning", "valid", "error"] as const;
 
@@ -16,11 +22,11 @@ const ColorRow = ({
   color: (typeof colorKeys)[number];
   disabled?: boolean;
 }) => (
-  <div className="flex justify-start items-center gap-2 h-[22px]">
-    <div className="flex justify-start w-24">
+  <div className="flex h-[22px] items-center justify-start gap-2 whitespace-nowrap">
+    <div className="flex w-24 justify-start">
       <Checkbox label={color} colors={color} checked disabled={disabled} />
     </div>
-    <div className="flex justify-start w-24">
+    <div className="flex w-24 justify-start">
       <Radio label={color} colors={color} checked disabled={disabled} />
     </div>
   </div>
@@ -30,21 +36,22 @@ function Component() {
   return (
     <CompareGrid>
       <StateLabels items={colorLabels} />
-      <div className="grid grid-cols-2 items-center gap-4">
-        <div className="flex flex-col gap-4">
+      {/* 한 열에 체크박스+라디오(w-24 x2)가 들어가므로 폭을 넓게 잡는다. */}
+      <CompareColumns columnWidth="212px">
+        <div className="flex min-w-0 flex-col gap-4">
           <ColumnTitle>Default</ColumnTitle>
           {colorKeys.map((color) => (
             <ColorRow key={color} color={color} />
           ))}
         </div>
 
-        <div className="flex flex-col gap-4">
+        <div className="flex min-w-0 flex-col gap-4">
           <ColumnTitle>Disabled</ColumnTitle>
           {colorKeys.map((color) => (
             <ColorRow key={color} color={color} disabled />
           ))}
         </div>
-      </div>
+      </CompareColumns>
     </CompareGrid>
   );
 }

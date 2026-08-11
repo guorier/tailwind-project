@@ -4,45 +4,53 @@ import React from "react";
 import { CodeData } from "@/components/helpers/examples/code-demo";
 import { Checkbox } from "@/components/Checkbox/Checkbox";
 import { Radio } from "@/components/Radio/Radio";
-import { CompareGrid, StateLabels, ColumnTitle, Row, stateLabels } from "./parts";
+import {
+  CompareColumn,
+  CompareColumns,
+  CompareGrid,
+  ColumnTitle,
+  Row,
+  StateLabels,
+  stateLabels,
+} from "./parts";
 
 function Component() {
   return (
     <CompareGrid>
       <StateLabels items={stateLabels} />
-      <div className="grid grid-cols-4 items-center gap-4">
-        <div className="flex flex-col items-center gap-4">
+      <CompareColumns>
+        <CompareColumn>
           <ColumnTitle>Checkbox : Small</ColumnTitle>
           <Row><Checkbox /></Row>
           <Row><Checkbox checked /></Row>
           <Row><Checkbox disabled /></Row>
           <Row><Checkbox disabled checked /></Row>
-        </div>
+        </CompareColumn>
 
-        <div className="flex flex-col items-center gap-4">
+        <CompareColumn>
           <ColumnTitle>Checkbox : Large</ColumnTitle>
-          <Checkbox sizes="lg" />
-          <Checkbox sizes="lg" checked />
-          <Checkbox sizes="lg" disabled />
-          <Checkbox sizes="lg" disabled checked />
-        </div>
+          <Row><Checkbox sizes="lg" /></Row>
+          <Row><Checkbox sizes="lg" checked /></Row>
+          <Row><Checkbox sizes="lg" disabled /></Row>
+          <Row><Checkbox sizes="lg" disabled checked /></Row>
+        </CompareColumn>
 
-        <div className="flex flex-col items-center gap-4">
+        <CompareColumn>
           <ColumnTitle>Radio Line : Small</ColumnTitle>
           <Row><Radio type="line" /></Row>
           <Row><Radio type="line" checked /></Row>
           <Row><Radio type="line" disabled /></Row>
           <Row><Radio type="line" disabled checked /></Row>
-        </div>
+        </CompareColumn>
 
-        <div className="flex flex-col items-center gap-4">
+        <CompareColumn>
           <ColumnTitle>Radio Line : Large</ColumnTitle>
-          <Radio type="line" sizes="lg" />
-          <Radio type="line" sizes="lg" checked />
-          <Radio type="line" sizes="lg" disabled />
-          <Radio type="line" sizes="lg" disabled checked />
-        </div>
-      </div>
+          <Row><Radio type="line" sizes="lg" /></Row>
+          <Row><Radio type="line" sizes="lg" checked /></Row>
+          <Row><Radio type="line" sizes="lg" disabled /></Row>
+          <Row><Radio type="line" sizes="lg" disabled checked /></Row>
+        </CompareColumn>
+      </CompareColumns>
     </CompareGrid>
   );
 }

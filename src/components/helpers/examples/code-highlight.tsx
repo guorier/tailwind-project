@@ -47,7 +47,7 @@ export function CodeHighlight({
   return (
     <pre
       className={twMerge(
-        `language-${language} !p-10 rounded-lg overflow-auto`,
+        `language-${language} !p-5 md:!p-10 max-w-full rounded-lg overflow-x-auto`,
         className
       )}
       {...props}

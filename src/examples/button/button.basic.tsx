@@ -3,7 +3,14 @@
 import React from "react";
 import { CodeData } from "@/components/helpers/examples/code-demo";
 import { Button } from "@/components/Button/Button";
-import { CompareGrid, StateLabels, ColumnTitle, radiusKeys } from "./parts";
+import {
+  CompareColumn,
+  CompareColumns,
+  CompareGrid,
+  ColumnTitle,
+  StateLabels,
+  radiusKeys,
+} from "./parts";
 
 const radiusTitles = {
   default: "Default",
@@ -15,21 +22,22 @@ function Component() {
   return (
     <CompareGrid>
       <StateLabels items={["Default", "Disabled"]} />
-      <div className="grid grid-cols-6 items-center gap-4">
+      {/* "Outline Secondary" 처럼 긴 제목이 옆 열을 침범하지 않을 폭. */}
+      <CompareColumns columnWidth="132px">
         {/* default 스타일 3종 */}
         {radiusKeys.map((radius) => (
-          <div key={`fill-${radius}`} className="flex flex-col items-center gap-4">
+          <CompareColumn key={`fill-${radius}`}>
             <ColumnTitle>{radiusTitles[radius]}</ColumnTitle>
             <Button radius={radius}>Button</Button>
             <Button radius={radius} disabled>
               Button
             </Button>
-          </div>
+          </CompareColumn>
         ))}
 
         {/* outline 스타일 3종 */}
         {radiusKeys.map((radius) => (
-          <div key={`outline-${radius}`} className="flex flex-col items-center gap-4">
+          <CompareColumn key={`outline-${radius}`}>
             <ColumnTitle>Outline {radiusTitles[radius]}</ColumnTitle>
             <Button styleType="outline" radius={radius}>
               Button
@@ -37,9 +45,9 @@ function Component() {
             <Button styleType="outline" radius={radius} disabled>
               Button
             </Button>
-          </div>
+          </CompareColumn>
         ))}
-      </div>
+      </CompareColumns>
     </CompareGrid>
   );
 }

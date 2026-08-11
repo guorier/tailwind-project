@@ -3,7 +3,14 @@
 import React from "react";
 import { CodeData } from "@/components/helpers/examples/code-demo";
 import { Button } from "@/components/Button/Button";
-import { CompareGrid, StateLabels, ColumnTitle, colorKeys } from "./parts";
+import {
+  CompareColumn,
+  CompareColumns,
+  CompareGrid,
+  ColumnTitle,
+  StateLabels,
+  colorKeys,
+} from "./parts";
 
 const colorLabels = ["Base", "Primary", "Secondary", "Warning", "Valid", "Error"];
 
@@ -11,8 +18,9 @@ function Component() {
   return (
     <CompareGrid>
       <StateLabels items={colorLabels} />
-      <div className="grid grid-cols-2 items-center gap-4">
-        <div className="flex flex-col items-center gap-4">
+      {/* 왼쪽 열에 버튼이 2개 들어가므로 그 폭에 맞춘다. */}
+      <CompareColumns columnWidth="212px">
+        <CompareColumn>
           <ColumnTitle>Default / Outline</ColumnTitle>
           {colorKeys.map((color) => (
             <div key={color} className="flex items-center gap-4">
@@ -22,17 +30,17 @@ function Component() {
               </Button>
             </div>
           ))}
-        </div>
+        </CompareColumn>
 
-        <div className="flex flex-col items-center gap-4">
+        <CompareColumn>
           <ColumnTitle>Disabled</ColumnTitle>
           {colorKeys.map((color) => (
             <Button key={color} colors={color} disabled>
               Button
             </Button>
           ))}
-        </div>
-      </div>
+        </CompareColumn>
+      </CompareColumns>
     </CompareGrid>
   );
 }
