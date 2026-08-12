@@ -113,6 +113,12 @@ const config: Config = {
       '112.5': '30.875rem'
     },
     extend: {
+      // 기본 스케일은 1~6까지라 항목이 많은 메뉴를 열 단위로 나누려면 직접 넓혀야 한다.
+      gridTemplateRows: {
+        '10': 'repeat(10, minmax(0, 1fr))',
+        '13': 'repeat(13, minmax(0, 1fr))',
+        '19': 'repeat(19, minmax(0, 1fr))',
+      },
       fontFamily: {
         pretendard: [
           'Pretendard GOV Variable',
@@ -429,6 +435,20 @@ const config: Config = {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: '0' }
         },
+        // Collapsible 도 Accordion 과 같은 속도로 여닫히게 맞춘다.
+        'collapsible-down': {
+          from: { height: '0' },
+          to: { height: 'var(--radix-collapsible-content-height)' }
+        },
+        'collapsible-up': {
+          from: { height: 'var(--radix-collapsible-content-height)' },
+          to: { height: '0' }
+        },
+        // 체크 표시가 눌린 느낌으로 떠오르는 효과.
+        'check-pop': {
+          from: { opacity: '0', transform: 'scale(0.6)' },
+          to: { opacity: '1', transform: 'scale(1)' }
+        },
         // 로고 트레이스를 따라 신호가 흐르는 효과.
         // 각 path 에 pathLength=1 을 주어 대시 길이를 비율로 다룬다.
         'trace-flow': {
@@ -449,6 +469,9 @@ const config: Config = {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'collapsible-down': 'collapsible-down 0.2s ease-out',
+        'collapsible-up': 'collapsible-up 0.2s ease-out',
+        'check-pop': 'check-pop 0.15s ease-out',
         'trace-flow': 'trace-flow 2.4s linear infinite',
         'node-pulse': 'node-pulse 2.4s ease-in-out infinite',
         'rise-in': 'rise-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both'

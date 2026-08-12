@@ -50,11 +50,12 @@ export default function Nav({ navItems }: { navItems: NavItem[] }) {
                     <NavigationMenuTrigger className="flex h-full w-40 items-center justify-between px-3 text-sm">
                       {navItem.name}
                     </NavigationMenuTrigger>
-                    <NavigationMenuContent className="p-3">
-                      {/* 항목 수가 많아 세로 한 줄이면 화면을 넘긴다. 고정 폭 열로 나눠 폭이 흔들리지 않게 한다. */}
-                      <ul className="grid max-h-[70vh] grid-flow-col grid-rows-10 gap-x-2 gap-y-1 overflow-y-auto">
+                    <NavigationMenuContent className="max-w-[calc(100vw-2rem)] p-3">
+                      {/* 항목 수가 많아 세로 한 줄이면 화면을 넘긴다. 고정 폭 열로 나눠 폭이 흔들리지 않게 하되,
+                          좁은 화면에서는 행을 늘려 열 수를 줄여야 팝업이 뷰포트 밖으로 잘리지 않는다. */}
+                      <ul className="grid max-h-[70vh] grid-flow-col grid-rows-19 gap-x-2 gap-y-1 overflow-y-auto lg:grid-rows-13 xl:grid-rows-10">
                         {navItem.children.map((child) => (
-                          <li key={child.name} className="w-44">
+                          <li key={child.name} className="w-40 xl:w-44">
                             <Link
                               href={`/docs${child.link}`}
                               className={`block truncate rounded px-2 py-1 text-sm hover:bg-accent hover:text-accent-foreground ${
