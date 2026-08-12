@@ -428,11 +428,30 @@ const config: Config = {
         'accordion-up': {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: '0' }
+        },
+        // 로고 트레이스를 따라 신호가 흐르는 효과.
+        // 각 path 에 pathLength=1 을 주어 대시 길이를 비율로 다룬다.
+        'trace-flow': {
+          '0%': { strokeDashoffset: '2' },
+          '100%': { strokeDashoffset: '0' }
+        },
+        // 트레이스 끝단 노드가 신호 도달에 맞춰 밝아졌다 가라앉는 효과.
+        'node-pulse': {
+          '0%, 70%, 100%': { opacity: '0.35', transform: 'scale(1)' },
+          '85%': { opacity: '1', transform: 'scale(1.6)' }
+        },
+        // 문서 예제 카드가 아래에서 떠오르며 나타나는 효과.
+        'rise-in': {
+          from: { opacity: '0', transform: 'translateY(12px)' },
+          to: { opacity: '1', transform: 'translateY(0)' }
         }
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
-        'accordion-up': 'accordion-up 0.2s ease-out'
+        'accordion-up': 'accordion-up 0.2s ease-out',
+        'trace-flow': 'trace-flow 2.4s linear infinite',
+        'node-pulse': 'node-pulse 2.4s ease-in-out infinite',
+        'rise-in': 'rise-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both'
       }
     }
   },

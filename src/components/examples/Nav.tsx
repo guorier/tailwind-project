@@ -38,7 +38,7 @@ export default function Nav({ navItems }: { navItems: NavItem[] }) {
           className="rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
           aria-label="Common UI home"
         >
-          <ProjectLogo />
+          <ProjectLogo animated />
         </Link>
 
         <NavigationMenu className="hidden w-29 md:flex">

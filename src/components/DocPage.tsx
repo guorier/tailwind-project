@@ -15,7 +15,15 @@ export default function DocPage({ parameters, root }: { parameters?: Parameter[]
       {parameters && <ObjectParameter parameters={parameters} />}
       <div className="mx-auto flex min-w-0 flex-col pt-6">
         {items.map((code, i) =>
-          <CodeDemo key={i} data={code} />
+          // 예제가 순차적으로 떠오르도록 인덱스만큼 지연을 준다.
+          // 목록이 길어져도 대기가 길어지지 않게 상한을 둔다.
+          <div
+            key={i}
+            className="animate-rise-in motion-reduce:animate-none"
+            style={{ animationDelay: `${Math.min(i, 6) * 80}ms` }}
+          >
+            <CodeDemo data={code} />
+          </div>
         )}
       </div>
     </Container>
