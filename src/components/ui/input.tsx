@@ -5,7 +5,7 @@ import Icons from '@/components/Icons';
 import {cn} from '@/lib/utils';
 
 const inputVariants = cva(
-  'relative flex items-center px-4 py-0 w-full text-body1 placeholder:text-guide rounded-lg bg-white disabled:bg-black200 disabled:placeholder:text-body2 disabled:border-strokeDefault disabled:text-body1 !focus:outline-none focus:ring-0 focus:ring-transparent focus:border-2 focus:border-point',
+  'relative flex items-center px-4 py-0 w-full text-body1 text-foreground placeholder:text-muted-foreground rounded-lg border border-input bg-card disabled:bg-muted disabled:placeholder:text-muted-foreground disabled:border-border disabled:text-muted-foreground !focus:outline-none focus:ring-0 focus:ring-transparent focus:border-2 focus:border-primary',
   {
     variants: {
       variant: {

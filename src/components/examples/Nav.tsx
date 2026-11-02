@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
 
 import ProjectLogo from "@/components/ProjectLogo";
+import ThemeSwitcher from "@/components/ThemeSwitcher";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -33,21 +34,25 @@ export default function Nav({ navItems }: { navItems: NavItem[] }) {
   return (
     <header className="w-full">
       <div className="flex h-14 w-full items-center justify-between">
-        <Link
-          href="/"
-          className="rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-          aria-label="Common UI home"
-        >
-          <ProjectLogo animated />
-        </Link>
+        <div className="flex min-w-0 items-center gap-3">
+          <Link
+            href="/"
+            className="rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+            aria-label="Common UI home"
+          >
+            <ProjectLogo animated tone="light" />
+          </Link>
+          <ThemeSwitcher className="hidden md:flex" />
+          <ThemeSwitcher className="flex md:hidden" />
+        </div>
 
-        <NavigationMenu className="hidden w-29 md:flex">
+        <NavigationMenu className="ml-auto hidden h-14 w-29 md:flex">
           <NavigationMenuList className="flex items-center gap-2">
             {navItems.map((navItem) => (
               <NavigationMenuItem key={navItem.name} className="flex h-14 items-center">
                 {navItem.children?.length ? (
                   <>
-                    <NavigationMenuTrigger className="flex h-full w-40 items-center justify-between px-3 text-sm">
+                    <NavigationMenuTrigger className="!bg-transparent flex h-full w-40 items-center justify-between px-3 text-sm !text-white hover:!bg-white/10 hover:!text-atlas-cream data-[state=open]:!bg-white/10 data-[state=open]:!text-atlas-cream">
                       {navItem.name}
                     </NavigationMenuTrigger>
                     <NavigationMenuContent className="max-w-[calc(100vw-2rem)] p-3">
@@ -60,7 +65,7 @@ export default function Nav({ navItems }: { navItems: NavItem[] }) {
                               href={`/docs${child.link}`}
                               className={`block truncate rounded px-2 py-1 text-sm hover:bg-accent hover:text-accent-foreground ${
                                 pathname === `/docs${child.link}`
-                                  ? "bg-accent text-accent-foreground"
+                                  ? "bg-silver-100 text-slate-900"
                                   : ""
                               }`}
                             >
@@ -76,8 +81,8 @@ export default function Nav({ navItems }: { navItems: NavItem[] }) {
                     href={`/docs${navItem.link}`}
                     className={`inline-flex h-full items-center px-3 text-sm ${
                       pathname === `/docs${navItem.link}`
-                        ? "font-medium text-primary"
-                        : "text-muted-foreground hover:text-foreground"
+                        ? "font-medium text-teal-300"
+                        : "text-white/60 hover:text-white"
                     }`}
                   >
                     {navItem.name}
@@ -88,10 +93,10 @@ export default function Nav({ navItems }: { navItems: NavItem[] }) {
           </NavigationMenuList>
         </NavigationMenu>
 
-        <div className="ml-auto md:hidden">
+        <div className="ml-auto flex items-center gap-2 md:hidden">
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="outline" size="icon" aria-label="Open navigation menu">
+              <Button variant="outline" size="icon" aria-label="Open navigation menu" className="!border-white/15 !bg-white/5 !text-white hover:!bg-white/10 hover:!text-white">
                 <Menu className="size-4" />
               </Button>
             </SheetTrigger>

@@ -340,6 +340,13 @@ const config: Config = {
           '800': '#4a352f',
           '900': '#3b2824'
         },
+        atlas: {
+          ink: '#0E0A0E',
+          panel: '#201A17',
+          cream: '#EDE0D4',
+          teal: '#30DFC4',
+          violet: '#9D4EDD'
+        },
         warning: {
           '100': '#ffaa00'
         },

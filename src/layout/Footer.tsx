@@ -47,7 +47,7 @@ const LINK_GROUPS = [
 
 export default function Footer() {
   return (
-    <footer className="mt-6 w-full border-t border-silver-200 bg-silver-100">
+    <footer className="mt-0 w-full border-t border-white/10 bg-atlas-ink text-white">
       <div className="mx-auto max-w-7xl px-6 py-10">
         <div className="flex flex-col gap-10 md:flex-row md:justify-between">
           <div className="max-w-xs">
@@ -56,9 +56,9 @@ export default function Footer() {
               className="inline-flex rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
               aria-label="Common UI home"
             >
-              <ProjectLogo animated />
+              <ProjectLogo animated tone="light" />
             </Link>
-            <p className="mt-3 text-sm leading-relaxed text-natural-600">
+            <p className="mt-3 text-sm leading-relaxed text-white/45">
               일관된 화면을 빠르게 만들기 위한 사내 공통 컴포넌트 모음입니다.
             </p>
           </div>
@@ -70,7 +70,7 @@ export default function Footer() {
           >
             {LINK_GROUPS.map((group) => (
               <div key={group.title}>
-                <h2 className="text-xs font-semibold uppercase tracking-wider text-natural-500">
+                <h2 className="text-xs font-semibold uppercase tracking-wider text-white/40">
                   {group.title}
                 </h2>
                 <ul className="mt-3 flex flex-col gap-2">
@@ -78,7 +78,7 @@ export default function Footer() {
                     <li key={link.href}>
                       <Link
                         href={link.href}
-                        className="text-sm text-natural-600 transition-colors hover:text-foreground"
+                        className="text-sm text-white/55 transition-colors hover:text-white"
                       >
                         {link.name}
                       </Link>
@@ -90,8 +90,8 @@ export default function Footer() {
           </nav>
         </div>
 
-        <div className="mt-10 border-t border-silver-200 pt-6">
-          <p className="text-xs text-natural-500">
+        <div className="mt-10 border-t border-white/10 pt-6">
+          <p className="text-xs text-white/35">
             © {new Date().getFullYear()} Common UI. 사내 사용 목적으로 제작되었습니다.
           </p>
         </div>

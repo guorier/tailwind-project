@@ -4,6 +4,7 @@ type ProjectLogoProps = HTMLAttributes<HTMLSpanElement> & {
   compact?: boolean
   /** 트레이스를 따라 신호가 흐르는 애니메이션을 재생한다. */
   animated?: boolean
+  tone?: 'dark' | 'light'
 }
 
 /**
@@ -31,6 +32,7 @@ const STAGGER_MS = 300
 export default function ProjectLogo({
   compact = false,
   animated = false,
+  tone = 'dark',
   className = '',
   ...props
 }: ProjectLogoProps) {
@@ -95,8 +97,8 @@ export default function ProjectLogo({
 
       {!compact && (
         <span className="flex flex-col leading-none">
-          <span className="text-[14px] font-black tracking-[0.15em] text-slate-900">COMMON UI</span>
-          <span className="mt-1 text-[8px] font-semibold tracking-[0.24em] text-emerald-700">COMPONENT SYSTEM</span>
+          <span className={`text-[14px] font-black tracking-[0.15em] ${tone === 'light' ? 'text-white' : 'text-slate-900'}`}>COMMON UI</span>
+          <span className={`mt-1 text-[8px] font-semibold tracking-[0.24em] ${tone === 'light' ? 'text-teal-300' : 'text-emerald-700'}`}>COMPONENT SYSTEM</span>
         </span>
       )}
     </span>

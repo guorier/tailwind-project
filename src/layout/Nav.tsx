@@ -56,7 +56,7 @@ export default function Navbar() {
     },
   ]
   return (
-    <Container>
+    <Container className="!max-w-8xl px-5 sm:px-8 lg:px-12">
       <Nav navItems={navItems} />
     </Container>
   );

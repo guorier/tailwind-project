@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { ReduxProvider } from '@/redux/provider'
+import { AtlasThemeProvider } from '@/components/AtlasThemeProvider'
 
 import '@/styles/globals.css'
 import '@/styles/fonts/pretendard.css'
@@ -30,13 +31,15 @@ export default function RootLayout({
     <html lang="ko">
       <body className='text-lato'>
         <ReduxProvider>
-          <Navbar />
-          {children}
-          <Footer />
+          <AtlasThemeProvider>
+            <Navbar />
+            {children}
+            <Footer />
 
-          <AlertDialog />
-          <ConfirmDialog />
-          <Toaster duration={10000} />
+            <AlertDialog />
+            <ConfirmDialog />
+            <Toaster duration={10000} />
+          </AtlasThemeProvider>
         </ReduxProvider>
       </body>
     </html>

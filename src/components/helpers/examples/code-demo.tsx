@@ -42,13 +42,13 @@ export function CodeDemo({ data }: { data: CodeData }) {
         <div className="space-y-1">
           <h5 className="font-bold">{data.title}</h5>
           {data.description && (
-            <p className="text-sm text-gray-600">{data.description}</p>
+            <p className="text-sm text-muted-foreground">{data.description}</p>
           )}
         </div>
       )}
 
       {/* PREVIEW */}
-      <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white p-4 md:p-6">
+      <div className="overflow-x-auto rounded-xl border border-border bg-card p-4 text-card-foreground md:p-6">
         {data.component}
       </div>
 

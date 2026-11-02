@@ -10,7 +10,7 @@ function Card({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       className={cn(
-        "flex flex-col rounded-xl border border-silver-200 bg-white text-natural-800 shadow-sm",
+        "flex flex-col rounded-xl border border-border bg-card text-card-foreground shadow-sm",
         className
       )}
       {...props}
@@ -42,7 +42,7 @@ function CardTitle({ className, ...props }: React.ComponentProps<"h3">) {
 
 function CardDescription({ className, ...props }: React.ComponentProps<"p">) {
   return (
-    <p className={cn("mt-1.5 text-sm text-natural-500", className)} {...props} />
+    <p className={cn("mt-1.5 text-sm text-muted-foreground", className)} {...props} />
   )
 }
 
@@ -60,7 +60,7 @@ function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       className={cn(
-        "mt-auto flex items-center gap-2 border-t border-silver-200 px-6 py-4",
+        "mt-auto flex items-center gap-2 border-t border-border px-6 py-4",
         className
       )}
       {...props}
