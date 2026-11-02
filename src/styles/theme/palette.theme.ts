@@ -17,6 +17,28 @@ export type AtlasTheme = {
   colors: PaletteSwatch[]
 }
 
+// globals.css :root 의 shadcn 기본 토큰을 그대로 쓰는 테마. Provider는 이 테마에서 semantic 변수를 덮어쓰지 않는다.
+export const baseTheme: AtlasTheme = {
+  id: 'default',
+  index: '00',
+  name: 'Default',
+  label: 'DEFAULT / BASE',
+  description: 'The original neutral tokens of the component library, untouched.',
+  mood: 'neutral · clean · familiar',
+  surface: '#FFFFFF',
+  foreground: '#0A0A0A',
+  accent: '#346FB2',
+  muted: '#737373',
+  colors: [
+    { name: 'White', hex: '#FFFFFF' },
+    { name: 'Neutral 100', hex: '#F5F5F5' },
+    { name: 'Neutral 200', hex: '#E5E5E5' },
+    { name: 'Neutral 900', hex: '#171717' },
+    { name: 'Lightblue 500', hex: '#346FB2' },
+  ],
+}
+
+// 이미지에서 추출한 소스 팔레트. ColorAtlas 인덱스는 이 목록만 보여준다.
 export const atlasThemes: AtlasTheme[] = [
   {
     id: 'blueprint',
@@ -153,4 +175,7 @@ export const atlasThemes: AtlasTheme[] = [
   },
 ]
 
-export const defaultAtlasTheme = atlasThemes[0]
+// 테마 선택기에 노출되는 전체 목록
+export const themeOptions: AtlasTheme[] = [baseTheme, ...atlasThemes]
+
+export const defaultAtlasTheme = baseTheme

@@ -3,7 +3,7 @@
 import { Check, ChevronDown, Palette } from 'lucide-react'
 import type { CSSProperties } from 'react'
 
-import { useAtlasTheme } from '@/components/AtlasThemeProvider'
+import { useAtlasTheme } from '@/components/AtlasThemeContext'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,7 +11,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { atlasThemes } from '@/styles/theme/palette.theme'
+import { themeOptions } from '@/styles/theme/palette.theme'
 
 export default function ThemeSwitcher({ className = '' }: { className?: string }) {
   const { activeTheme, setTheme } = useAtlasTheme()
@@ -32,7 +32,7 @@ export default function ThemeSwitcher({ className = '' }: { className?: string }
         </DropdownMenuTrigger>
         <DropdownMenuContent className="atlas-theme-content" align="start" sideOffset={8}>
           <DropdownMenuLabel className="atlas-theme-menu-label">Color atmosphere</DropdownMenuLabel>
-          {atlasThemes.map((theme) => {
+          {themeOptions.map((theme) => {
             const isActive = theme.id === activeTheme.id
             const optionStyle = { '--theme-option-color': theme.accent } as CSSProperties
 

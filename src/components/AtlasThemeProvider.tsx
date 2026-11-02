@@ -1,19 +1,13 @@
 'use client'
 
-import { createContext, useContext, useEffect, useMemo, useState, type CSSProperties, type ReactNode } from 'react'
+import { useEffect, useMemo, useState, type CSSProperties, type ReactNode } from 'react'
 
-import { atlasThemes, defaultAtlasTheme, type AtlasTheme } from '@/styles/theme/palette.theme'
+import { AtlasThemeContext } from '@/components/AtlasThemeContext'
+import { baseTheme, defaultAtlasTheme, themeOptions, type AtlasTheme } from '@/styles/theme/palette.theme'
 
 const STORAGE_KEY = 'common-ui-atlas-theme'
 
 type ThemeStyle = CSSProperties & Record<`--${string}`, string>
-
-type AtlasThemeContextValue = {
-  activeTheme: AtlasTheme
-  setTheme: (themeId: string) => void
-}
-
-const AtlasThemeContext = createContext<AtlasThemeContextValue | null>(null)
 
 function hexToRgb(hex: string) {
   const value = hex.replace('#', '')
@@ -81,13 +75,21 @@ function getThemeStyle(theme: AtlasTheme): ThemeStyle {
   const muted = mixHex(theme.surface, theme.foreground, 0.14)
   const secondary = theme.colors[1].hex
   const signal = theme.colors[3].hex
-
-  return {
+  const atlasTokens: ThemeStyle = {
     '--atlas-surface': theme.surface,
     '--atlas-panel': panel,
     '--atlas-foreground': theme.foreground,
     '--atlas-accent': theme.accent,
     '--atlas-muted': theme.muted,
+  }
+
+  // 기본 테마는 globals.css :root 의 semantic 토큰을 그대로 쓴다.
+  if (theme.id === baseTheme.id) {
+    return atlasTokens
+  }
+
+  return {
+    ...atlasTokens,
     '--background': hexToHsl(theme.surface),
     '--foreground': hexToHsl(theme.foreground),
     '--card': hexToHsl(panel),
@@ -118,13 +120,13 @@ function getThemeStyle(theme: AtlasTheme): ThemeStyle {
 export function AtlasThemeProvider({ children }: { children: ReactNode }) {
   const [themeId, setThemeId] = useState(defaultAtlasTheme.id)
   const [hasLoadedPreference, setHasLoadedPreference] = useState(false)
-  const activeTheme = atlasThemes.find((theme) => theme.id === themeId) ?? defaultAtlasTheme
+  const activeTheme = themeOptions.find((theme) => theme.id === themeId) ?? defaultAtlasTheme
   const themeStyle = useMemo(() => getThemeStyle(activeTheme), [activeTheme])
 
   useEffect(() => {
     const storedThemeId = window.localStorage.getItem(STORAGE_KEY)
 
-    if (storedThemeId && atlasThemes.some((theme) => theme.id === storedThemeId)) {
+    if (storedThemeId && themeOptions.some((theme) => theme.id === storedThemeId)) {
       setThemeId(storedThemeId)
     }
 
@@ -139,11 +141,17 @@ export function AtlasThemeProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const root = document.documentElement
+    const entries = Object.entries(themeStyle)
 
-    Object.entries(themeStyle).forEach(([property, value]) => {
+    entries.forEach(([property, value]) => {
       root.style.setProperty(property, String(value))
     })
     root.dataset.atlasTheme = activeTheme.id
+
+    // 다음 테마가 일부 변수만 쓰는 경우(기본 테마) 이전 값이 남지 않도록 지운다.
+    return () => {
+      entries.forEach(([property]) => root.style.removeProperty(property))
+    }
   }, [activeTheme.id, themeStyle])
 
   const contextValue = useMemo(
@@ -161,14 +169,4 @@ export function AtlasThemeProvider({ children }: { children: ReactNode }) {
       </div>
     </AtlasThemeContext.Provider>
   )
-}
-
-export function useAtlasTheme() {
-  const context = useContext(AtlasThemeContext)
-
-  if (!context) {
-    throw new Error('useAtlasTheme must be used inside AtlasThemeProvider')
-  }
-
-  return context
 }

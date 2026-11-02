@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { ArrowUpRight, Check, Clipboard, Code2, Layers3, Sparkles } from 'lucide-react'
 import { useState, type CSSProperties } from 'react'
 
-import { useAtlasTheme } from '@/components/AtlasThemeProvider'
+import { useAtlasTheme } from '@/components/AtlasThemeContext'
 import { atlasThemes, type AtlasTheme } from '@/styles/theme/palette.theme'
 
 function getContrastColor(hex: string) {
