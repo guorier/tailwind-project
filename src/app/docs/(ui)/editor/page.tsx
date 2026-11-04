@@ -1,37 +1,56 @@
 import dynamic from "next/dynamic";
-import { tiny } from "@/examples/editor";
-import ObjectParameter, { Parameter } from "../ObjectParameter";
 
-/** 문서에 노출할 예제 순서. */
-const examples = [tiny];
+import ObjectParameter, { Parameter } from "../ObjectParameter";
+import { tiptap } from "@/examples/editor";
+
+const examples = [tiptap];
 
 const setupNotes: Parameter[] = [
   {
-    parameter: "dynamic(..., { ssr: false })",
-    type: "next/dynamic",
-    required: "Required",
-    description:
-      "TinyMCE 는 window 에 의존합니다. SSR 을 끄지 않으면 서버 렌더링 중 오류가 발생합니다.",
-  },
-  {
-    parameter: "tinymceScriptSrc",
+    parameter: "initialContent",
     type: "string",
     required: "Optional",
-    description:
-      'self-host 스크립트 경로. 이 프로젝트는 public/tinymce 에 두고 "/tinymce/tinymce.min.js" 를 가리키도록 설정합니다.',
+    description: "에디터가 처음 표시될 때 사용할 HTML 콘텐츠입니다.",
   },
   {
-    parameter: "init.license_key",
+    parameter: "onChange",
+    type: "(html: string) => void",
+    required: "Optional",
+    description: "콘텐츠가 변경될 때 현재 HTML을 전달받습니다.",
+  },
+  {
+    parameter: "placeholder",
     type: "string",
     required: "Optional",
-    description: 'GPL 버전을 쓸 때는 "gpl" 을 지정합니다.',
+    description: "비어 있는 에디터에 표시할 안내 문구입니다.",
   },
   {
-    parameter: "onInit",
-    type: "(evt, editor) => void",
+    parameter: "무료 확장 기능",
+    type: "StarterKit + Tiptap extensions",
     required: "Optional",
     description:
-      "에디터 인스턴스를 ref 에 담아 두면 나중에 본문(getContent)을 꺼낼 수 있습니다.",
+      "제목, 굵게, 기울임, 취소선, 인라인 코드, 밑줄, 하이라이트, 상·하첨자, 정렬, 목록, 체크리스트, 인용, 코드 블록, 표, 구분선을 제공합니다.",
+  },
+  {
+    parameter: "이미지 입력",
+    type: "file / paste / drop",
+    required: "Optional",
+    description:
+      "Add 버튼, 이미지 붙여넣기, 드래그 앤 드롭으로 이미지를 삽입합니다. 데모에서는 브라우저 blob URL을 사용합니다.",
+  },
+  {
+    parameter: "검색 및 바꾸기",
+    type: "FindAndReplace",
+    required: "Optional",
+    description:
+      "검색어·바꾸기, 이전/다음 결과, 모두 바꾸기, 대소문자·단어·정규식 옵션을 지원합니다.",
+  },
+  {
+    parameter: "SSR 초기화",
+    type: "immediatelyRender: false",
+    required: "Optional",
+    description:
+      "Next.js hydration mismatch를 피하기 위해 내부 Tiptap 인스턴스에 false로 설정되어 있습니다.",
   },
 ];
 
@@ -45,17 +64,16 @@ export default function EditorDoc() {
       <div className="mx-auto max-w-7xl pt-6">
         <h3 className="mb-2 font-bold">Editor</h3>
         <p className="mb-4 font-medium text-gray-700">
-          TinyMCE 기반 리치 텍스트 에디터입니다. 클라이언트 전용이라 next/dynamic 으로
-          불러와야 합니다.
+          Tiptap v3 기반 리치 텍스트 에디터입니다. 클라이언트에서 안전하게 초기화되며
+          HTML 콘텐츠를 입력과 함께 관리할 수 있습니다.
         </p>
         <p className="mb-8 text-sm text-gray-600">
-          현재 TinyEditor 컴포넌트는 init 설정이 주석 처리된 상태로, 툴바·플러그인·값
-          연동이 적용되지 않습니다. 실제로 사용하려면 TinyEditor.tsx 의 설정을 먼저
-          마무리해야 합니다.
+          공식 무료 Simple Editor에서 제공하는 서식, 체크리스트, 하이라이트, 링크,
+          이미지, 표, 검색/바꾸기, 다크 모드를 포함합니다.
         </p>
 
-        <div className="flex items-center gap-4 mb-4">
-          <h5 className="flex-none font-bold">설정 시 확인할 항목</h5>
+        <div className="mb-4 flex items-center gap-4">
+          <h5 className="flex-none font-bold">설정 및 속성</h5>
           <div className="w-full border-t border-solid border-gray-300" />
         </div>
         <div className="mb-10">

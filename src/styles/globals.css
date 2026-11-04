@@ -167,6 +167,146 @@
   }
 }
 @layer components {
+  .tiptap-editor .simple-editor-content .tiptap.ProseMirror {
+    @apply min-w-0 max-w-full;
+    @apply flex-1;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .tiptap-editor .simple-editor-content {
+    @apply min-w-0 max-w-full;
+  }
+
+  .tiptap p {
+    @apply my-2 leading-7;
+  }
+
+  .tiptap p.is-editor-empty:first-child::before {
+    @apply pointer-events-none float-left h-0 text-muted-foreground;
+    content: attr(data-placeholder);
+  }
+
+  .tiptap h1 {
+    @apply my-4 text-3xl font-bold;
+  }
+
+  .tiptap h2 {
+    @apply my-3 text-2xl font-bold;
+  }
+
+  .tiptap h3 {
+    @apply my-3 text-xl font-bold;
+  }
+
+  .tiptap ul {
+    @apply my-3 list-disc pl-6;
+  }
+
+  .tiptap ol {
+    @apply my-3 list-decimal pl-6;
+  }
+
+  .tiptap li p {
+    @apply my-0;
+  }
+
+  .tiptap ul[data-type="taskList"] {
+    @apply list-none pl-0;
+  }
+
+  .tiptap ul[data-type="taskList"] li {
+    @apply flex items-start gap-2;
+  }
+
+  .tiptap ul[data-type="taskList"] li > label {
+    @apply mt-1 flex shrink-0 items-center;
+  }
+
+  .tiptap ul[data-type="taskList"] li > label input {
+    @apply m-0 h-4 w-4 cursor-pointer rounded border-input text-secondary focus:ring-secondary;
+  }
+
+  .tiptap ul[data-type="taskList"] li[data-checked="true"] > div {
+    @apply text-muted-foreground line-through;
+  }
+
+  .tiptap mark {
+    @apply rounded px-0.5;
+  }
+
+  .tiptap sub,
+  .tiptap sup {
+    @apply text-xs;
+  }
+
+  .tiptap blockquote {
+    @apply my-4 border-l-4 border-primary pl-4 italic text-muted-foreground;
+  }
+
+  .tiptap pre {
+    @apply my-4 overflow-x-auto rounded-md bg-slate-900 p-4 text-sm text-slate-100;
+  }
+
+  .tiptap code:not(pre code) {
+    @apply rounded bg-muted px-1.5 py-0.5 text-sm;
+  }
+
+  .tiptap a {
+    @apply text-primary underline underline-offset-2;
+  }
+
+  .tiptap .tableWrapper {
+    @apply my-4 max-w-full overflow-x-auto;
+  }
+
+  .tiptap table {
+    @apply w-full table-fixed border-collapse;
+  }
+
+  .tiptap th,
+  .tiptap td {
+    @apply relative break-words border border-border p-2 align-top;
+  }
+
+  .tiptap th {
+    @apply bg-muted text-left font-semibold;
+  }
+
+  .tiptap .selectedCell::after {
+    @apply pointer-events-none absolute inset-0 bg-primary/10;
+    content: "";
+  }
+
+  .tiptap hr {
+    @apply my-6 border-border;
+  }
+
+  .tiptap img {
+    @apply mx-auto my-4 max-h-[400px] max-w-full rounded-md;
+  }
+
+  .tiptap-editor .find-and-replace-result {
+    @apply rounded-sm bg-yellow-200/70;
+  }
+
+  .tiptap-editor .find-and-replace-result-current {
+    @apply rounded-sm bg-secondary/30 ring-2 ring-secondary/40;
+  }
+
+  .tiptap-editor[data-editor-theme="dark"] .tiptap a {
+    @apply text-purple-300;
+  }
+
+  .tiptap-editor[data-editor-theme="dark"] .tiptap th {
+    @apply bg-slate-800;
+  }
+
+  .tiptap-editor[data-editor-theme="dark"] .tiptap th,
+  .tiptap-editor[data-editor-theme="dark"] .tiptap td {
+    @apply border-slate-700;
+  }
+
   .atlas-shell {
     position: relative;
     isolation: isolate;

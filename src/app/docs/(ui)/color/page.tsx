@@ -1,9 +1,9 @@
-import { palette, state } from "@/examples/color";
+import { palette, state, themes } from "@/examples/color";
 import DocPage from "@/components/DocPage";
 import ObjectParameter, { Parameter } from "../ObjectParameter";
 
 /** 문서에 노출할 예제 순서. */
-const examples = [palette, state];
+const examples = [palette, state, themes];
 
 const usageRules: Parameter[] = [
   {
@@ -38,6 +38,13 @@ const usageRules: Parameter[] = [
     description:
       "색상 값을 코드에서 직접 참조할 때 사용합니다. colorName 과 shades 를 가집니다.",
   },
+  {
+    parameter: "themeOptions",
+    type: "@styles/theme/palette.theme",
+    required: "Optional",
+    description:
+      "테마별 surface · foreground · accent · muted 토큰과 원본 팔레트를 참조할 때 사용합니다.",
+  },
 ];
 
 export default function ColorDoc() {
@@ -47,7 +54,8 @@ export default function ColorDoc() {
         <h3 className="mb-2 font-bold">Color</h3>
         <p className="mb-8 font-medium text-gray-700">
           프로젝트 색상 팔레트입니다. tailwind.config.ts 에 등록돼 있어 Tailwind 클래스로
-          바로 쓸 수 있고, 값이 필요하면 color.theme 의 colorsArray 를 가져옵니다.
+          바로 쓸 수 있고, 값이 필요하면 color.theme 의 colorsArray 또는 palette.theme 의
+          themeOptions 를 가져옵니다.
         </p>
 
         <div className="flex items-center gap-4 mb-4">

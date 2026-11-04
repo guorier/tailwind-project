@@ -1,1 +1,1 @@
-export { tiny } from './editor.tiny';
+export { tiptap } from "./editor.tiptap";
